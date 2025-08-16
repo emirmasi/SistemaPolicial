@@ -6,12 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -35,7 +35,9 @@ en esta screen se muestra la pantalla incial del login,
 se loguea con lp
  */
 @Composable
-fun LoginScreen() {
+fun LoginScreen(
+    modifier: Modifier = Modifier
+) {
     var password by remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -59,7 +61,13 @@ fun LoginScreen() {
             onClick = {
                 ///aca iria la navegación y la lógica de inicio de sesión
             },
-            modifier = Modifier.padding(top = 16.dp)
+            colors = ButtonDefaults.buttonColors(
+                containerColor = MaterialTheme.colorScheme.primaryContainer,
+                contentColor = MaterialTheme.colorScheme.primary
+            ),
+            modifier = Modifier
+                .padding(top = 16.dp)
+                .size(width = 280.dp, height = 50.dp)
         ) {
             Text("Ingresar")
         }

@@ -28,7 +28,11 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lint.kotlin.metadata.Visibility
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.practica.policeubgapp.R
+import com.practica.policeubgapp.ui.components.PasswordTextField
 
 /*
 en esta screen se muestra la pantalla incial del login,
@@ -36,6 +40,7 @@ se loguea con lp
  */
 @Composable
 fun LoginScreen(
+    navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
     var password by remember { mutableStateOf("") }
@@ -75,46 +80,9 @@ fun LoginScreen(
     }
 }
 
-@Composable
-fun PasswordTextField(
-    password: String,
-    onPasswordChanged: (String) -> Unit
-){
-    var passwordVisible by remember { mutableStateOf(false) }
-
-    OutlinedTextField(
-        value = password,
-        onValueChange = onPasswordChanged,
-        label = { Text("Introduzca su LP") },
-        singleLine = true,
-        visualTransformation = if (passwordVisible)
-            VisualTransformation.None
-        else
-            PasswordVisualTransformation(),
-        trailingIcon = {
-            val image = if (passwordVisible)
-                R.drawable.baseline_visibility_24
-            else
-                R.drawable.baseline_visibility_off_24
-
-            IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                Icon(
-                    painter = painterResource(id = image),
-                    contentDescription = if (passwordVisible)
-                        "Hide password"
-                    else
-                        "Show password"
-                )
-            }
-        },
-        keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number
-        )
-    )
-}
-
 @Preview(showBackground = true)
 @Composable
 fun LoginScreenPreview() {
-    LoginScreen()
+    LoginScreen(navController = rememberNavController())
+
 }

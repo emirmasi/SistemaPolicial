@@ -65,6 +65,13 @@ fun MainScreen(){
                 Text("Comuna")
                 HorizontalDivider()
                 NavigationDrawerItem(
+                    label = {Text("Mis servicios")},
+                    selected = currentRoute == NavigationRoutes.DataService.route,
+                    onClick = {
+                        controller.navigate(route = NavigationRoutes.DataService.route)
+                    }
+                )
+                NavigationDrawerItem(
                     label = {Text("Salir")},
                     selected = currentRoute == NavigationRoutes.Login.route,
                     onClick = {

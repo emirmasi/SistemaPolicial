@@ -7,8 +7,10 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
+import com.practica.policeubgapp.ui.components.DataServiceComponent
 import com.practica.policeubgapp.ui.screens.HomeScreen
 import com.practica.policeubgapp.ui.screens.LoginScreen
+import com.practica.policeubgapp.ui.screens.ServiceScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
@@ -26,6 +28,9 @@ fun NavigationComponent(
         }
         composable(route = NavigationRoutes.Home.route){
             HomeScreen(navigationController)
+        }
+        composable(route = NavigationRoutes.DataService.route){
+            ServiceScreen(navigationController)
         }
 
     }

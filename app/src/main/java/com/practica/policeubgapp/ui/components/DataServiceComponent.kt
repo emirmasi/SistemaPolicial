@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+//aca deberia ir por estado un item de un servicio
 @Composable
 fun DataServiceComponent(){
     ElevatedCard(

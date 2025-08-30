@@ -11,9 +11,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material3.DrawerValue
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.Scaffold
@@ -27,6 +27,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.practica.policeubgapp.ui.components.CircleImage
+import com.practica.policeubgapp.ui.components.DataPoliceComponent
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 import kotlinx.coroutines.launch
 
@@ -49,21 +50,7 @@ fun MainScreen(){
             )  {
                 Spacer(Modifier.height(12.dp))
                 //aca debe ir una foto de perfil
-                CircleImage()
-                Spacer(Modifier.height(12.dp))
-                HorizontalDivider()
-                Spacer(Modifier.height(12.dp))
-                Text("Apellido y nombre")
-                HorizontalDivider()
-                Spacer(Modifier.height(12.dp))
-                Text("Jerarquia")
-                HorizontalDivider()
-                Spacer(Modifier.height(12.dp))
-                Text("Dependencia")
-                HorizontalDivider()
-                Spacer(Modifier.height(12.dp))
-                Text("Comuna")
-                HorizontalDivider()
+                DataPoliceComponent()
                 NavigationDrawerItem(
                     label = {Text("Mis servicios")},
                     selected = currentRoute == NavigationRoutes.DataService.route,
@@ -81,7 +68,8 @@ fun MainScreen(){
 
             }
         },
-        drawerState = drawerState
+        drawerState = drawerState,
+        scrimColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.24f),
     ) {
         Scaffold (
             topBar = {

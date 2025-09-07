@@ -5,5 +5,8 @@ sealed class NavigationRoutes(
 ) {
     object Login : NavigationRoutes("loginScreen")
     object Home : NavigationRoutes("homeScreen")
-    object DataService : NavigationRoutes("dataServiceScreen")
+    object ServicesData : NavigationRoutes("dataServiceScreen")
+
+    object Map : NavigationRoutes("mapScreen")
+
 }

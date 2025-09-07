@@ -23,7 +23,7 @@ fun DataPoliceComponent(){
             .padding(10.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        CircleImage()
+        //CircleImage()
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             TextDataShowComponent("Apellido y nombre","masi Isaias")
             TextDataShowComponent("Jerarquia","oficial")

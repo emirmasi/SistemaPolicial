@@ -26,8 +26,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import com.practica.policeubgapp.ui.components.CircleImage
 import com.practica.policeubgapp.ui.components.DataPoliceComponent
+import com.practica.policeubgapp.ui.components.TopAppBarComponent
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 import kotlinx.coroutines.launch
 
@@ -53,9 +53,9 @@ fun MainScreen(){
                 DataPoliceComponent()
                 NavigationDrawerItem(
                     label = {Text("Mis servicios")},
-                    selected = currentRoute == NavigationRoutes.DataService.route,
+                    selected = currentRoute == NavigationRoutes.ServicesData.route,
                     onClick = {
-                        controller.navigate(route = NavigationRoutes.DataService.route)
+                        controller.navigate(route = NavigationRoutes.ServicesData.route)
                     }
                 )
                 NavigationDrawerItem(
@@ -73,8 +73,8 @@ fun MainScreen(){
     ) {
         Scaffold (
             topBar = {
-                TopAppBar(
-                    title = {Text("Estado policial") },///aca va el estado de la
+                TopAppBarComponent(
+                    title = "Hola, inspector masi",///aca va el estado de la
                     navigationIcon = {
                         IconButton(
                             onClick = {

@@ -20,7 +20,7 @@ fun NavigationComponent(
 ) {
     NavHost(
         navController = navigationController,
-        startDestination = NavigationRoutes.Login,
+        startDestination = NavigationRoutes.Login.route,
         modifier = modifier
     ){
         composable(route = NavigationRoutes.Login.route){
@@ -33,7 +33,7 @@ fun NavigationComponent(
             ServiceScreen(navigationController)
         }
         composable(route = NavigationRoutes.Map.route){
-            MapScreen()
+            MapScreen(navigationController)
         }
     }
 }

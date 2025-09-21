@@ -1,43 +1,56 @@
 package com.practica.policeubgapp.ui.components
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.BottomAppBar
+
 import androidx.compose.material3.Icon
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarDefaults
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.practica.policeubgapp.R
+import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 
 @Composable
 fun BottomBarComponent(
     navController: NavHostController,
 ){
-    BottomAppBar {
-        Row(modifier = Modifier
-            .fillMaxWidth()) {
-            TarjetNavigate()
+    NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
+
+        val navBackStackEntry = navController.currentBackStackEntry
+        val currentRoute = navBackStackEntry?.destination?.route
+
+        val listRoutes = listOf(
+            NavigationRoutes.Home,
+            NavigationRoutes.ServicesData,
+            NavigationRoutes.Map
+        )
+        listRoutes.forEach { screen ->
+            NavigationBarItem(
+                selected = currentRoute == screen.route,
+                onClick = {
+                    navController.navigate(screen.route){
+                        popUpTo(navController.graph.startDestinationId) { saveState = true }
+                        launchSingleTop = true
+                        restoreState = true
+                    }
+                },
+                icon = {
+                    Icon(
+                        painter = painterResource(id = screen.icon),
+                        contentDescription = null
+                    )
+                },
+                label = {
+                    Text(text = screen.title)
+                }
+            )
         }
     }
 }
-@Composable
-fun TarjetNavigate() {
-    Column (
-        modifier = Modifier.padding(3.dp)
-    ){
-        Icon(
-            painter = painterResource(id = R.drawable.baseline_visibility_24),
-            contentDescription = null
-        )
 
-    }
-}
 
 @Preview(showBackground = true)
 @Composable

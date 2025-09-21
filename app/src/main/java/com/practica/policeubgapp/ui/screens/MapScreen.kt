@@ -30,8 +30,6 @@ fun MapScreen(navController: NavHostController){
             .padding(16.dp),
 
     ) {
-        ///Api de mapa
-        ///barra progresiva de cant km siendo el limite de 8km
         KmProgressBar(7.5f)
     }
 }

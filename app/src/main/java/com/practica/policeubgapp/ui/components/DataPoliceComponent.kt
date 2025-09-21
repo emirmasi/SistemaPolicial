@@ -13,22 +13,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.practica.policeubgapp.domain.models.COMUNA
+import com.practica.policeubgapp.domain.models.DatePolice
+import com.practica.policeubgapp.domain.models.JERARQUIA
 
 @Composable
-fun DataPoliceComponent(){
-    ///aca vamos a mostar los datos del efectivo
+fun DataPoliceComponent(datePolice: DatePolice){
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        //CircleImage()
+        CircleImage(datePolice.getFoto())
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextDataShowComponent("Apellido y nombre","masi Isaias")
-            TextDataShowComponent("Jerarquia","oficial")
-            TextDataShowComponent("Dependencia","comisaria 3b")
-            TextDataShowComponent("Comuna",4)
+            TextDataShowComponent("Apellido y nombre",datePolice.getApellido()+" "+datePolice.getNombre())
+            TextDataShowComponent("Jerarquia",datePolice.getJerarquia().toString())
+            TextDataShowComponent("Dependencia",datePolice.getDependencia())
+            TextDataShowComponent("Comuna",datePolice.getComuna().toString())
         }
     }
 
@@ -39,5 +41,6 @@ fun DataPoliceComponent(){
 @Preview(showBackground = true)
 @Composable
 fun DataPoliceComponentPreview(){
-    DataPoliceComponent()
+    DataPoliceComponent(DatePolice(7960,"Masi","Isaias", JERARQUIA.INSPECTOR, dependecia = "comisaria 3b",
+        COMUNA.C12,"https://i0.wp.com/www.palermomio.com.ar/wp-content/uploads/2017/01/PoliciaCiudadLogo.png?resize=250%2C187&ssl=1"))
 }

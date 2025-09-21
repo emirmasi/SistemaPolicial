@@ -27,7 +27,7 @@ fun PasswordTextField(
     OutlinedTextField(
         value = password,
         onValueChange = onPasswordChanged,
-        label = { Text("Introduzca su LP") },
+        label = { Text("Introduzca su contraseña") },
         singleLine = true,
         visualTransformation = if (passwordVisible)
             VisualTransformation.None

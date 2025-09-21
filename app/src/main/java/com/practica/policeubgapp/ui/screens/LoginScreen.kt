@@ -6,32 +6,25 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
-import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lint.kotlin.metadata.Visibility
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.policeubgapp.R
+import com.practica.policeubgapp.ui.components.LpComponent
 import com.practica.policeubgapp.ui.components.PasswordTextField
 
 /*
@@ -43,6 +36,7 @@ fun LoginScreen(
     navController: NavHostController,
     modifier: Modifier = Modifier
 ) {
+    var lp by remember { mutableIntStateOf(0) }
     var password by remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -55,6 +49,11 @@ fun LoginScreen(
             contentDescription = "Logo",
             modifier = Modifier.size(250.dp)
         )
+        LpComponent(
+            lp = lp.toString(),
+        ){lpIntroduce->
+            lp = lpIntroduce.toInt()
+        }
         PasswordTextField(
             password = password,
 

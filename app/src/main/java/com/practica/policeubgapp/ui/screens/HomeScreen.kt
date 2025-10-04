@@ -17,6 +17,7 @@ fun HomeScreen(
             .fillMaxWidth()
     ) {
         //todo: carrousel con publicidad
+
         //todo mostar tarjeta de servicio a realizar es un lazyColumn ya que puede tener varios servicios
     }
 }

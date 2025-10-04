@@ -6,7 +6,7 @@ package com.practica.policeubgapp.domain.models
 class datosEnVivo (
     lp: Int,
     qthActual: String,
-    estado: ESTADO,
+    estado: STATE,
 ){
 
 }

@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.google.service)
 }
 
 android {
@@ -62,4 +63,10 @@ dependencies {
 
     //coil
     implementation(libs.coil.compose)
+
+    //firebase
+    implementation(platform(libs.firebase))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth)
+    implementation(libs.google.play.service)
 }

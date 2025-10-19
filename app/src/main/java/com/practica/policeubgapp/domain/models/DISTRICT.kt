@@ -1,6 +1,6 @@
 package com.practica.policeubgapp.domain.models
 
-enum class COMUNA {
+enum class DISTRICT {
     C1,
     C2,
     C3,

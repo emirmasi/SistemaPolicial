@@ -2,13 +2,21 @@ package com.practica.policeubgapp.ui.screens
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.practica.policeubgapp.domain.models.DISTRICT
+import com.practica.policeubgapp.domain.models.PoliceDate
+import com.practica.policeubgapp.domain.models.SCHEDULE
+import com.practica.policeubgapp.domain.models.Rank
+import com.practica.policeubgapp.domain.models.CompletedService
+import com.practica.policeubgapp.domain.models.TYPESERVICE
 import com.practica.policeubgapp.ui.components.DataServiceComponent
 
 //esta screen va a mostrar todos los servicios que hizo el efectivo en el mes
@@ -16,15 +24,73 @@ import com.practica.policeubgapp.ui.components.DataServiceComponent
 fun ServiceScreen(
     controller: NavHostController
 ){
-     val item = listOf<Int>(1,2,3,4,5,6,7)
+
+    //todo: en el viewModel debo crear una lista de servicios ordenados por fechas ambas formas
+     val services = listOf(
+         CompletedService(
+             lp = 1234,
+             typeService = TYPESERVICE.CONSIGNA,
+             date = "28/9/2025",
+             schedule = SCHEDULE.MAÑANA,
+             location = "av la plata",
+             cantKm = 7.5f,
+             supervised = PoliceDate(
+                 lp = 1234,
+                 lastName = "masi",
+                 firstName = "Juan Perez",
+                 rank = Rank.INSPECTOR,
+                 department = "policia",
+                 district = DISTRICT.C12,
+                 photoUrl = "foto"
+             )
+         ),
+         CompletedService(
+             lp = 1234,
+             typeService = TYPESERVICE.UBG,
+             date = "28/9/2025",
+             schedule = SCHEDULE.MAÑANA,
+             location = "av la plata",
+             cantKm = 7.5f,
+             supervised = PoliceDate(
+                 lp = 1234,
+                 lastName = "masi",
+                 firstName = "Juan Perez",
+                 rank = Rank.INSPECTOR,
+                 department = "policia",
+                 district = DISTRICT.C12,
+                 photoUrl = "foto"
+             )
+         ),
+         CompletedService(
+             lp = 1234,
+             typeService = TYPESERVICE.CONSIGNA,
+             date = "28/9/2025",
+             schedule = SCHEDULE.MAÑANA,
+             location = "av la plata",
+             cantKm = 7.5f,
+             supervised = PoliceDate(
+                 lp = 1234,
+                 lastName = "masi",
+                 firstName = "Juan Perez",
+                 rank = Rank.INSPECTOR,
+                 department = "policia",
+                 district = DISTRICT.C12,
+                 photoUrl = "foto"
+             )
+         )
+     )
     ///debo crear un componente que muestre todos los dato
     LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(8.dp),
+        verticalArrangement = Arrangement.spacedBy(12.dp)
 
     ) {
-        item( item){
-            DataServiceComponent()
+        items( services){ servicio->
+            DataServiceComponent(
+                servicio = servicio
+            )
         }
 
     }

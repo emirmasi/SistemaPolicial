@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1039951010741",
+    "project_id": "policeapp-a2696",
+    "storage_bucket": "policeapp-a2696.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1039951010741:android:d64fb77eaf89d2c7d857fc",
+        "android_client_info": {
+          "package_name": "com.practica.policeubgapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6ardHkwyiuopF_Y971e6Tx4JlTmGG1f8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

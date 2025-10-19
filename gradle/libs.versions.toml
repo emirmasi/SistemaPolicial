@@ -12,6 +12,11 @@ animationCoreLint = "1.9.0"
 navigationRuntimeKtx = "2.9.3"
 navigationCompose = "2.9.3"
 coil = "2.6.0"
+googleService= "4.4.4"
+firebase = "34.4.0"
+authFirebase = "23.2.1"
+serviceAuth = "21.4.0"
+
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -32,9 +37,13 @@ androidx-animation-core-lint = { group = "androidx.compose.animation", name = "a
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-
+firebase = {group = "com.google.firebase",name = "firebase-bom",version.ref = "firebase"}
+firebase-analytics = {group = "com.google.firebase",name = "firebase-analytics"}
+firebase-auth = {group = "com.google.firebase",name = "firebase-auth-ktx",version.ref = "authFirebase"}
+google-play-service = {group = "com.google.android.gms",name = "play-services-auth",version.ref = "serviceAuth"}
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+google-service={id = "com.google.gms.google-services", version.ref = "googleService"}
 

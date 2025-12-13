@@ -2,8 +2,9 @@
 [versions]
 # Kotlin y Gradle
 kotlin = "2.0.0"
-agp = "8.5.2"
+agp = "8.7.2"
 ksp = "2.0.21-1.0.25"
+googleservice = "4.4.2"
 
 # Hilt
 hilt = "2.52"
@@ -23,12 +24,16 @@ junit = "4.13.2"
 androidx-junit = "1.2.1"
 espresso-core = "3.6.1"
 
+#coil
+coil = "2.7.0"
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 hilt = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
-google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
+google-services = { id = "com.google.gms.google-services", version.ref = "googleservice" }
+
 
 [libraries]
 # AndroidX / Compose
@@ -50,7 +55,11 @@ hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hil
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
 
+
 # Testing
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-junit = { module = "androidx.test.ext:junit", version.ref = "androidx-junit" }
 espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso-core" }
+
+#implementation("io.coil-kt:coil-compose:2.7.0")
+coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }

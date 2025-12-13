@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.hilt)
     alias(libs.plugins.google.services)
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -12,7 +13,7 @@ android {
     compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.tuapp"
+        applicationId = "com.practica.policeubgapp"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -24,7 +25,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.5"
+        kotlinCompilerExtensionVersion = "1.6.10"
     }
 
     compileOptions {
@@ -62,6 +63,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
+
+    //coil
+    implementation(libs.coil)
 }
 
 

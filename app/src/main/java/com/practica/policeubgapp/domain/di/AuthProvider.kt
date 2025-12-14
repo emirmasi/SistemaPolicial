@@ -1,0 +1,24 @@
+package com.practica.policeubgapp.domain.di
+
+import com.practica.policeubgapp.data.repository.AuthRepositoryInterface
+import com.practica.policeubgapp.domain.services.AuthService
+import com.practica.policeubgapp.domain.usecases.SignInWithLpAndPassword
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
+
+@Module
+@InstallIn(SingletonComponent::class)
+object AuthProvider {
+
+    @Provides
+    fun provideAuthService(authRepository: AuthRepositoryInterface): AuthService {
+        return AuthService(authRepository = authRepository)
+    }
+
+    @Provides
+    fun provideSignInWithLpAndPassword(authService: AuthService): SignInWithLpAndPassword{
+        return authService
+    }
+}

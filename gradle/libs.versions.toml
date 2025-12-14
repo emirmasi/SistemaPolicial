@@ -1,13 +1,14 @@
 
 [versions]
 # Kotlin y Gradle
-kotlin = "2.0.0"
+kotlin = "2.0.21"
 agp = "8.7.2"
 ksp = "2.0.21-1.0.25"
 googleservice = "4.4.2"
 
 # Hilt
 hilt = "2.52"
+androidXHilt = "1.2.0"
 
 # Firebase
 firebase-bom = "33.4.0"
@@ -50,6 +51,7 @@ navigation-compose = { module = "androidx.navigation:navigation-compose", versio
 # Hilt
 hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
 hilt-compiler = { module = "com.google.dagger:hilt-compiler", version.ref = "hilt" }
+androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "androidXHilt" }
 
 # Firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }

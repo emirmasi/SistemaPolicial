@@ -10,6 +10,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import com.practica.policeubgapp.R
 
 @Composable
@@ -21,9 +22,7 @@ fun LpComponent(
     OutlinedTextField(
         value = lp,
         onValueChange ={ newLp->
-            if (newLp.all { it.isDigit()  }){
                 onLpChanged(newLp)
-            }
         } ,
         label = { Text("Introduzca su LP") },
         singleLine = true,
@@ -31,4 +30,12 @@ fun LpComponent(
             keyboardType = KeyboardType.Number
         )
     )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun LpComponentPreview(){
+    LpComponent("678") {
+
+    }
 }

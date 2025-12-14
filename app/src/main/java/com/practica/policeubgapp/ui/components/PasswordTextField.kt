@@ -50,7 +50,7 @@ fun PasswordTextField(
             }
         },
         keyboardOptions = KeyboardOptions(
-            keyboardType = KeyboardType.Number
+            keyboardType = KeyboardType.Password
         )
     )
 }

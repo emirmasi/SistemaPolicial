@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.ui.screens
+package com.practica.policeubgapp.ui.screens.LoginScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -21,16 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.practica.policeubgapp.R
 import com.practica.policeubgapp.ui.components.LpComponent
 import com.practica.policeubgapp.ui.components.PasswordTextField
+import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 
-/*
-en esta screen se muestra la pantalla incial del login,
-se loguea con lp
- */
 @Composable
 fun LoginScreen(
     navController: NavHostController,
@@ -38,6 +36,9 @@ fun LoginScreen(
 ) {
     var lp by remember { mutableIntStateOf(0) }
     var password by remember { mutableStateOf("") }
+    val loginVm: LoginScreenViewModel = hiltViewModel()
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -53,17 +54,21 @@ fun LoginScreen(
             lp = lp.toString(),
         ){lpIntroduce->
             lp = lpIntroduce.toInt()
+            loginVm.setLp(lp)
         }
         PasswordTextField(
             password = password,
 
         ){passwordIntroduce->
             password = passwordIntroduce
+
+            loginVm.setPassword(password)
             //aca lo tengo que validar con la base de datos
         }
         Button(
             onClick = {
-                ///aca iria la navegación y la lógica de inicio de sesión
+                loginVm.signInWithLpAndPassword()
+                navController.navigate(route = NavigationRoutes.Home.route)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,

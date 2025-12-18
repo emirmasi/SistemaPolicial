@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.ui.screens.LoginScreen
+package com.practica.policeubgapp.ui.screens.loginScreen
 
 import android.util.Log
 import androidx.compose.runtime.State

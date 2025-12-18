@@ -54,6 +54,8 @@ dependencies {
     // Firebase
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
+    //appCheck
+    implementation("com.google.firebase:firebase-appcheck-playintegrity:17.1.1")
 
     // Hilt
     implementation(libs.hilt.android)
@@ -64,6 +66,8 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
+
+
 
     //coil
     implementation(libs.coil)

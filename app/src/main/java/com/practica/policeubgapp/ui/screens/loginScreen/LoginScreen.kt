@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.ui.screens.LoginScreen
+package com.practica.policeubgapp.ui.screens.loginScreen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -32,7 +32,6 @@ import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 @Composable
 fun LoginScreen(
     navController: NavHostController,
-    modifier: Modifier = Modifier
 ) {
     var lp by remember { mutableIntStateOf(0) }
     var password by remember { mutableStateOf("") }
@@ -44,31 +43,27 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        ///logo de la policia de la ciudad
         Image(
             painter = painterResource(id = R.drawable.ciudad_logo1),
             contentDescription = "Logo",
             modifier = Modifier.size(250.dp)
         )
         LpComponent(
-            lp = lp.toString(),
+            lp = lp,
         ){lpIntroduce->
-            lp = lpIntroduce.toInt()
-            loginVm.setLp(lp)
+            lp = lpIntroduce
+            loginVm.setLp(lpIntroduce)
         }
         PasswordTextField(
             password = password,
-
         ){passwordIntroduce->
             password = passwordIntroduce
-
             loginVm.setPassword(password)
-            //aca lo tengo que validar con la base de datos
         }
         Button(
             onClick = {
                 loginVm.signInWithLpAndPassword()
-                navController.navigate(route = NavigationRoutes.Home.route)
+                navController.navigate(route = NavigationRoutes.MainScreen.route)
             },
             colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primaryContainer,

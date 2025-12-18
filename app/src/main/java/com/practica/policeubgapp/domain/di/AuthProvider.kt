@@ -2,7 +2,9 @@ package com.practica.policeubgapp.domain.di
 
 import com.practica.policeubgapp.data.repository.AuthRepositoryInterface
 import com.practica.policeubgapp.domain.services.AuthService
+import com.practica.policeubgapp.domain.usecases.GetCurrentUser
 import com.practica.policeubgapp.domain.usecases.SignInWithLpAndPassword
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,4 +23,8 @@ object AuthProvider {
     fun provideSignInWithLpAndPassword(authService: AuthService): SignInWithLpAndPassword{
         return authService
     }
+    @Provides
+     fun provideGetCurrentUser(authService: AuthService): GetCurrentUser{
+         return authService
+     }
 }

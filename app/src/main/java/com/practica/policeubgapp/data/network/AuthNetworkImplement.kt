@@ -27,7 +27,7 @@ class AuthNetworkImplement @Inject constructor(
         }
 
     override suspend fun getCurrentUser(): FirebaseUser? {
-        TODO("Not yet implemented")
+        return firebaseAuth.currentUser
     }
 
     override suspend fun signOut() {

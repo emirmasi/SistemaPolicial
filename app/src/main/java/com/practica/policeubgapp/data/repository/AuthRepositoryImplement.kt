@@ -16,8 +16,8 @@ class AuthRepositoryImplement @Inject constructor(
         return authNetworkFirebase.signInWithEmailAndPassword(lp,password)
     }
 
-    override suspend fun getCurrentUser(): FirebaseUser {
-        TODO("Not yet implemented")
+    override suspend fun getCurrentUser(): FirebaseUser? {
+        return authNetworkFirebase.getCurrentUser()
     }
 
 }

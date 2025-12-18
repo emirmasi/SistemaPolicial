@@ -11,19 +11,25 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.text.isDigitsOnly
 import com.practica.policeubgapp.R
 
 @Composable
 fun LpComponent(
-    lp: String,
-    onLpChanged: (String) -> Unit
+    lp: Int,
+    onLpChanged: (Int) -> Unit
 ){
 
     OutlinedTextField(
-        value = lp,
-        onValueChange ={ newLp->
-                onLpChanged(newLp)
-        } ,
+        value = lp.toString(),
+        onValueChange ={ newLpString:String->
+            if (newLpString.all { it.isDigit() } || newLpString.isEmpty()) {
+                // 4. Intentamos convertir el String de nuevo a Int.
+                // Si es vacío, podemos pasarlo como 0 o dejarlo sin pasar el cambio.
+                val newLpInt = newLpString.toIntOrNull() ?: 0
+
+                onLpChanged(newLpInt) }
+                       },
         label = { Text("Introduzca su LP") },
         singleLine = true,
         keyboardOptions = KeyboardOptions(
@@ -35,7 +41,8 @@ fun LpComponent(
 @Preview(showBackground = true)
 @Composable
 fun LpComponentPreview(){
-    LpComponent("678") {
+    LpComponent(678) {
+        lpnew->
 
     }
 }

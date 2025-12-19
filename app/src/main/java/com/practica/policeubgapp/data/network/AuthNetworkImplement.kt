@@ -31,6 +31,6 @@ class AuthNetworkImplement @Inject constructor(
     }
 
     override suspend fun signOut() {
-        TODO("Not yet implemented")
+        firebaseAuth.signOut()
     }
 }

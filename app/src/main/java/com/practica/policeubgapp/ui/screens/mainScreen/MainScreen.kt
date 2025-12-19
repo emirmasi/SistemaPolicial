@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.ui.screens
+package com.practica.policeubgapp.ui.screens.mainScreen
 
 import android.annotation.SuppressLint
 import android.os.Build
@@ -20,24 +20,21 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
 import com.practica.policeubgapp.domain.models.DISTRICT
 import com.practica.policeubgapp.domain.models.PoliceDate
 import com.practica.policeubgapp.domain.models.Rank
 import com.practica.policeubgapp.ui.components.BottomBarComponent
 import com.practica.policeubgapp.ui.components.DataPoliceComponent
 import com.practica.policeubgapp.ui.components.TopAppBarComponent
-import com.practica.policeubgapp.ui.navigations.NavigationComponent
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 import kotlinx.coroutines.launch
 
@@ -52,6 +49,10 @@ fun MainScreen( controller: NavHostController) {
     val currentRoute = navBackStackEntry?.destination?.route
     val scope = rememberCoroutineScope ()
     val drawerState = rememberDrawerState(DrawerValue.Closed)
+
+    val mainVm : MainScreenViewModel = hiltViewModel()
+
+
 
     LaunchedEffect(currentRoute) {
         println("The currentRoute is: $currentRoute")
@@ -93,6 +94,8 @@ fun MainScreen( controller: NavHostController) {
                     label = { Text("Salir") },
                     selected = currentRoute == NavigationRoutes.Login.route,
                     onClick = {
+                        //aca debe ir el logout
+                        mainVm.signOut()
                         controller.navigate(route = NavigationRoutes.Login.route) {
                             popUpTo(0) { inclusive = true }
                         }
@@ -102,7 +105,7 @@ fun MainScreen( controller: NavHostController) {
             }
         },
         drawerState = drawerState,
-        scrimColor = MaterialTheme.colorScheme.scrim,
+        scrimColor = MaterialTheme.colorScheme.primaryContainer,
     ) {
         Scaffold(
             topBar = {
@@ -128,13 +131,14 @@ fun MainScreen( controller: NavHostController) {
     }
 }
 
-//@RequiresApi(Build.VERSION_CODES.P)
-//@Preview(showBackground = true)
-//@Composable
-//fun MainScreenPreview() {
-//    MainScreen(
-//    )
-//}
+@RequiresApi(Build.VERSION_CODES.P)
+@Preview(showBackground = true)
+@Composable
+fun MainScreenPreview() {
+    MainScreen(
+        controller = NavHostController(LocalContext.current),
+    )
+}
 
 // @Preview(showBackground = true)
 // @Composable

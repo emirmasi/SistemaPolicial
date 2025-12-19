@@ -20,4 +20,8 @@ class AuthRepositoryImplement @Inject constructor(
         return authNetworkFirebase.getCurrentUser()
     }
 
+    override suspend fun signOut() {
+        authNetworkFirebase.signOut()
+    }
+
 }

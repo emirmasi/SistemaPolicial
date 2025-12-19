@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.ui.screens
+package com.practica.policeubgapp.ui.screens.splashScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

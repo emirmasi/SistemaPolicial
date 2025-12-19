@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.ui.screens
+package com.practica.policeubgapp.ui.screens.splashScreen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,6 +6,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
+import com.practica.policeubgapp.ui.screens.splashScreen.SplashViewModel
 
 @Composable
 fun SplashScreen(navHostController: NavHostController) {

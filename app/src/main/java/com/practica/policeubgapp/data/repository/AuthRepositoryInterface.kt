@@ -7,4 +7,5 @@ import com.practica.policeubgapp.domain.models.AuthRes
 interface AuthRepositoryInterface {
     suspend fun signInWithEmailAndPassword(lp: String, password: String): AuthRes<FirebaseUser>
     suspend fun getCurrentUser(): FirebaseUser?
+    suspend fun signOut()
 }

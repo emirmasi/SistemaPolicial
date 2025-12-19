@@ -7,13 +7,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import com.practica.policeubgapp.ui.screens.HomeScreen
 import com.practica.policeubgapp.ui.screens.loginScreen.LoginScreen
-import com.practica.policeubgapp.ui.screens.MainScreen
+import com.practica.policeubgapp.ui.screens.mainScreen.MainScreen
 import com.practica.policeubgapp.ui.screens.MapScreen
 import com.practica.policeubgapp.ui.screens.ServiceScreen
-import com.practica.policeubgapp.ui.screens.SplashScreen
+import com.practica.policeubgapp.ui.screens.splashScreen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable

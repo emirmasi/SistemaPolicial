@@ -129,7 +129,7 @@ fun DataServiceComponentPreview(){
     DataServiceComponent(
         servicio = CompletedService(
             lp = 7890,
-            typeService = TYPESERVICE.CONSIGNA,
+            typeService = TYPESERVICE.ORDINARIO,
             date = "28/9/2025",
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",

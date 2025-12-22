@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
-import com.practica.policeubgapp.ui.navigations.NavigationComponent
+import com.practica.policeubgapp.ui.navigations.ExternalNavComponent
 import com.practica.policeubgapp.ui.theme.PoliceUbgAppTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +26,7 @@ class MainActivity : ComponentActivity() {
             PoliceUbgAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) {
                     val navigationController = rememberNavController()
-                    NavigationComponent(navigationController)
+                    ExternalNavComponent(navigationController)
                 }
             }
         }

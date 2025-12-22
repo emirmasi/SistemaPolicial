@@ -16,11 +16,10 @@ import com.practica.policeubgapp.ui.screens.splashScreen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
-fun NavigationComponent(
+fun ExternalNavComponent(
     navigationController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-
     NavHost(
         navController = navigationController,
         startDestination = NavigationRoutes.Splash.route,
@@ -32,17 +31,31 @@ fun NavigationComponent(
         composable(route = NavigationRoutes.Login.route){
             LoginScreen(navController = navigationController)
         }
-        composable(route = NavigationRoutes.Home.route){
-            HomeScreen(navigationController)
-        }
-        composable(route = NavigationRoutes.ServicesData.route){
-            ServiceScreen(navigationController)
-        }
         composable(route = NavigationRoutes.MainScreen.route){
             MainScreen(navigationController)
         }
+
+    }
+}
+
+@RequiresApi(Build.VERSION_CODES.P)
+@Composable
+fun InternalNavComponent(
+    internalController: NavHostController
+){
+    NavHost(
+        navController = internalController,
+        startDestination = NavigationRoutes.Home.route
+    ){
+        composable(route = NavigationRoutes.Home.route){
+            HomeScreen(internalController)
+        }
+        composable(route = NavigationRoutes.ServicesData.route){
+            ServiceScreen(internalController)
+        }
         composable(route = NavigationRoutes.Map.route){
-            MapScreen(navigationController)
+            MapScreen(internalController)
         }
     }
+
 }

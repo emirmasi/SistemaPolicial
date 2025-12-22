@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,20 +19,36 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.practica.policeubgapp.ui.components.BottomBarComponent
 import com.practica.policeubgapp.ui.components.KmProgressBar
+import com.practica.policeubgapp.ui.components.TopAppBarComponent
 
 //en este componente vamos a mostrar el mapa interactivo con las burbujas y las cant de km recorridos
 //dependiendo del estado que se encuentre el efectivo
 @Composable
 fun MapScreen(navController: NavHostController){
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp),
 
+    Scaffold(
+        topBar = {
+            TopAppBarComponent(
+                title = "Mapa de servicios"
+            ) {
+
+            }
+        },
+        bottomBar = { BottomBarComponent(navController) }
     ) {
-        KmProgressBar(7.5f)
+        innerPadding->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+
+            ) {
+            KmProgressBar(7.5f)
+        }
     }
+
 }
 @Preview(showBackground = true)
 @Composable

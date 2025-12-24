@@ -56,6 +56,8 @@ dependencies {
     implementation(libs.firebase.auth)
     //appCheck
     implementation("com.google.firebase:firebase-appcheck-playintegrity:17.1.1")
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.firestore)
 
     // Hilt
     implementation(libs.hilt.android)

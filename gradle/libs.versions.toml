@@ -12,6 +12,8 @@ androidXHilt = "1.2.0"
 
 # Firebase
 firebase-bom = "33.4.0"
+storage = "21.0.2"
+firestore= "26.0.2"
 
 # AndroidX / Compose
 core-ktx = "1.13.1"
@@ -56,6 +58,9 @@ androidx-hilt-navigation-compose = { group = "androidx.hilt", name = "hilt-navig
 # Firebase
 firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebase-bom" }
 firebase-auth = { module = "com.google.firebase:firebase-auth" }
+
+firebase-storage = {group = "com.google.firebase",name = "firebase-storage-ktx",version.ref = "storage"}
+firebase-firestore = {group = "com.google.firebase",name = "firebase-firestore",version.ref = "firestore"}
 
 
 # Testing

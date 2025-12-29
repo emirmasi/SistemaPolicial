@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.practica.policeubgapp.ui.screens.HomeScreen
+import com.practica.policeubgapp.ui.screens.homeScreen.HomeScreen
 import com.practica.policeubgapp.ui.screens.loginScreen.LoginScreen
 import com.practica.policeubgapp.ui.screens.mainScreen.MainScreen
 import com.practica.policeubgapp.ui.screens.MapScreen

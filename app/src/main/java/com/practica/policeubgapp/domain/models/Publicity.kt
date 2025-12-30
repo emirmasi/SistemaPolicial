@@ -1,10 +1,11 @@
 package com.practica.policeubgapp.domain.models
 
-class Publicity(
-    val id: String,
-    val image: String,
-    val link: String,
-    val active: Boolean
-) {
-    ///en esta clase vamos a traer las imagenes del firestore
-}
+import com.google.firebase.firestore.DocumentId
+
+data class Publicity(
+    @DocumentId
+    val id: String = "",
+    val active: Boolean = true,
+    val imagen: String = "",
+    val link: String = ""
+)

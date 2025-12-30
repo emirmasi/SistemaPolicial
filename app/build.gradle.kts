@@ -55,7 +55,7 @@ dependencies {
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.auth)
     //appCheck
-    implementation("com.google.firebase:firebase-appcheck-playintegrity:17.1.1")
+    implementation(libs.firebase.appcheck.playintegrity)
     implementation(libs.firebase.storage)
     implementation(libs.firebase.firestore)
 

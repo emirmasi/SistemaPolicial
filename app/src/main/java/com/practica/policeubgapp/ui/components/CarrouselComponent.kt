@@ -38,7 +38,7 @@ fun CarrouselComponent(
         val item = list[i]
         ///aca vamos a mostrar con coil
         AsyncImage(
-            model = item.image,
+            model = item.imagen,
             contentDescription = null,
             modifier = Modifier
                 .height(205.dp)

@@ -1,10 +1,10 @@
-package com.practica.policeubgapp.data.repository
+package com.practica.policeubgapp.domain.usecases
 
 import com.practica.policeubgapp.domain.models.PendingService
 import com.practica.policeubgapp.domain.models.PendingServiceUI
-import com.practica.policeubgapp.domain.models.Publicity
 
-interface FirestoreRepositoryInterface {
-    suspend fun getPublicity():List<Publicity>
+interface GetListOfServicePending {
     suspend fun getListOfServicePending(user: String?): List<PendingServiceUI>
 }
+
+

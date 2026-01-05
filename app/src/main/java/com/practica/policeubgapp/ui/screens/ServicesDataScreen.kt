@@ -32,7 +32,7 @@ fun ServiceScreen(
     val services = listOf(
         CompletedService(
             lp = 1234,
-            typeService = TYPESERVICE.ORDINARIO,
+            typeService = TYPESERVICE.UBG,
             date = "28/9/2025",
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
@@ -49,7 +49,7 @@ fun ServiceScreen(
         ),
         CompletedService(
             lp = 1234,
-            typeService = TYPESERVICE.COMPLEMENTARIO,
+            typeService = TYPESERVICE.CONSIGNA,
             date = "28/9/2025",
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
@@ -66,7 +66,7 @@ fun ServiceScreen(
         ),
         CompletedService(
             lp = 1234,
-            typeService = TYPESERVICE.RECARGO,
+            typeService = TYPESERVICE.SATURACION,
             date = "28/9/2025",
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
@@ -102,7 +102,7 @@ fun ServiceScreen(
         ) {
             items(services) { servicio ->
                 DataServiceComponent(
-                    servicio = servicio
+                    service = servicio
                 )
             }
 

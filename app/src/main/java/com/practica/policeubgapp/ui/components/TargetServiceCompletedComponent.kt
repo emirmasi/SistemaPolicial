@@ -37,7 +37,7 @@ import com.practica.policeubgapp.domain.models.capitalizeFirst
 
 @Composable
 fun DataServiceComponent(
-    servicio: CompletedService
+    service: CompletedService
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -66,7 +66,7 @@ fun DataServiceComponent(
                     Spacer(modifier = Modifier.width(4.dp)
                     )
                     Text(
-                        text = servicio.getSchedule().timeRange,
+                        text = service.getSchedule().timeRange,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodySmall
@@ -79,7 +79,7 @@ fun DataServiceComponent(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = servicio.getLocation().capitalizeFirst(),
+                        text = service.getLocation().capitalizeFirst(),
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodySmall
@@ -93,7 +93,7 @@ fun DataServiceComponent(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "${servicio.getCantKm()} KM",
+                        text = "${service.getCantKm()} KM",
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -105,15 +105,15 @@ fun DataServiceComponent(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
-                    text = servicio.getDate(),
+                    text = service.getDate(),
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = servicio.getTypeService(),
+                    text = service.getTypeService(),
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "Fiscalizado por :\n${servicio.getSupervised().getRank().toString().capitalizeFirst()} ${servicio.getSupervised().getLastName().capitalizeFirst()}",
+                    text = "Fiscalizado por :\n${service.getSupervised().getRank().toString().capitalizeFirst()} ${service.getSupervised().getLastName().capitalizeFirst()}",
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.End
                 )
@@ -127,9 +127,9 @@ fun DataServiceComponent(
 @Composable
 fun DataServiceComponentPreview(){
     DataServiceComponent(
-        servicio = CompletedService(
+        service = CompletedService(
             lp = 7890,
-            typeService = TYPESERVICE.ORDINARIO,
+            typeService = TYPESERVICE.UBG,
             date = "28/9/2025",
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",

@@ -49,6 +49,7 @@ dependencies {
     implementation(libs.activity.compose)
     implementation(libs.lifecycle.runtime.ktx)
     implementation(libs.navigation.compose)
+    implementation(libs.androidx.runtime.livedata)
     debugImplementation(libs.compose.ui.tooling)
 
     // Firebase

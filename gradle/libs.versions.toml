@@ -30,6 +30,7 @@ espresso-core = "3.6.1"
 
 #coil
 coil = "2.7.0"
+runtimeLivedata = "1.10.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -72,3 +73,4 @@ espresso-core = { module = "androidx.test.espresso:espresso-core", version.ref =
 
 #implementation("io.coil-kt:coil-compose:2.7.0")
 coil = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtime-livedata", version.ref = "runtimeLivedata" }

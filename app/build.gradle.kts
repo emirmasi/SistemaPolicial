@@ -22,6 +22,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -70,6 +71,13 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.espresso.core)
 
+    // Maps SDK for Android
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+    implementation(libs.google.maps)
+    implementation(libs.google.play.services.location)
+    implementation(libs.google.play.services.maps)
+
+    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
 
 
     //coil

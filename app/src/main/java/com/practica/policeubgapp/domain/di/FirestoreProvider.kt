@@ -2,6 +2,7 @@ package com.practica.policeubgapp.domain.di
 
 import com.practica.policeubgapp.data.repository.FirestoreRepositoryInterface
 import com.practica.policeubgapp.domain.services.FirestoreService
+import com.practica.policeubgapp.domain.usecases.GetComisarias
 import com.practica.policeubgapp.domain.usecases.GetListOfServicePending
 import com.practica.policeubgapp.domain.usecases.GetPublicity
 import dagger.Module
@@ -22,6 +23,10 @@ object FirestoreProvider {
     }
     @Provides
     fun provideGetListOfServicePending(firestoreService: FirestoreService): GetListOfServicePending {
+        return firestoreService
+    }
+    @Provides
+    fun provideGetComisarias(firestoreService: FirestoreService): GetComisarias {
         return firestoreService
     }
 

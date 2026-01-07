@@ -1,6 +1,7 @@
 package com.practica.policeubgapp.data.repository
 
 import com.practica.policeubgapp.data.network.FirestoreNetworkInterface
+import com.practica.policeubgapp.domain.models.Comisaria
 import com.practica.policeubgapp.domain.models.PendingService
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.Publicity
@@ -15,6 +16,11 @@ class FirestoreRepositoryImplement @Inject constructor(
 
     override suspend fun getListOfServicePending(user: String?): List<PendingServiceUI> {
         return firestoreNetworkInterface.getListOfServicePending(user)
+    }
+
+    override suspend fun getComisarias(): List<Comisaria> {
+        return firestoreNetworkInterface.getComisarias()
+
     }
 
 }

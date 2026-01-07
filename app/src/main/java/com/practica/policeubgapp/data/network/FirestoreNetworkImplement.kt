@@ -2,6 +2,7 @@ package com.practica.policeubgapp.data.network
 
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
+import com.practica.policeubgapp.domain.models.Comisaria
 import com.practica.policeubgapp.domain.models.PendingService
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.Publicity
@@ -37,6 +38,18 @@ class FirestoreNetworkImplement @Inject constructor(
             list.map { it.toUIModel() }
         }catch (e : Exception){
             Log.e("firestoreNetworkImplemt","Error al obtener los servicios pendientes",e)
+            emptyList()
+        }
+    }
+
+    override suspend fun getComisarias(): List<Comisaria> {
+        return try {
+            val snapshot = firestore.collection("comisarias")
+                .get()
+                .await()
+             snapshot.toObjects(Comisaria::class.java)
+        }catch (e: Exception){
+            Log.e("firestoreNetworkImplemt","Error al obtener las comisarias",e)
             emptyList()
         }
     }

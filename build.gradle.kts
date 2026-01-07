@@ -7,7 +7,9 @@
     alias(libs.plugins.daggerHiltAndroid) apply false
     alias(libs.plugins.ksp) apply false
 }
+buildScrips{
 
+}
  */
 plugins {
     alias(libs.plugins.android.application) apply false
@@ -16,4 +18,6 @@ plugins {
     alias(libs.plugins.hilt) apply false
     alias(libs.plugins.google.services) apply false
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    alias(libs.plugins.maps.platform) apply false
+
 }

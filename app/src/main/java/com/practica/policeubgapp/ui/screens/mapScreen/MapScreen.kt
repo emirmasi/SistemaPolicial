@@ -50,7 +50,7 @@ fun MapScreen(
     )
 
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(mapScrenViewModel.cabaCenter, 10f)
+        position = CameraPosition.fromLatLngZoom(mapScrenViewModel.cabaCenter, 12f)
     }
 
     val locationPermissionsState = rememberMultiplePermissionsState(

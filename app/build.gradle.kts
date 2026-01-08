@@ -76,6 +76,7 @@ dependencies {
     implementation(libs.google.maps)
     implementation(libs.google.play.services.location)
     implementation(libs.google.play.services.maps)
+    implementation("com.google.maps.android:android-maps-utils:3.8.2")
 
     implementation("com.google.accompanist:accompanist-permissions:0.34.0")
 

@@ -37,6 +37,8 @@ runtimeLivedata = "1.10.0"
 playServicesLocation = "21.3.0"
 playServicesMaps = "18.2.0"
 googleMaps = "4.3.3"
+foundationLayout = "1.10.0"
+uiGraphics = "1.10.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -86,4 +88,6 @@ androidx-runtime-livedata = { group = "androidx.compose.runtime", name = "runtim
 google-maps = { group = "com.google.maps.android", name = "maps-compose", version.ref = "googleMaps" }
 google-play-services-location = { group = "com.google.android.gms", name = "play-services-location", version.ref = "playServicesLocation" }
 google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
+androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
+androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "uiGraphics" }
 

@@ -1,9 +1,11 @@
 package com.practica.policeubgapp.ui.components
 
+import android.R.attr.textSize
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.graphics.Paint
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,7 +17,6 @@ import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.model.BitmapDescriptor
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.CameraPositionState
 import com.google.maps.android.compose.GoogleMap
 import com.google.maps.android.compose.MapEffect
@@ -32,15 +33,16 @@ import com.practica.policeubgapp.R
 import com.practica.policeubgapp.domain.models.Comisaria
 import com.practica.policeubgapp.domain.models.DatosPanel
 import androidx.core.graphics.scale
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.data.Geometry
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
 fun MapComponent(
     modifier: Modifier,
     cameraPositionState: CameraPositionState,
-    cabaBounds: LatLngBounds,
     comisarias: List<Comisaria>,
-    hospitales: List<DatosPanel>,
+    onComunaSelected: (Int, List<String>) -> Unit
 ) {
     val context = LocalContext.current
 
@@ -67,30 +69,27 @@ fun MapComponent(
                     val layer = GeoJsonLayer(map, R.raw.comunas, context)
 
                     // Estilo de las líneas (azul como en tu imagen)
-                    var polygonStyle = layer.defaultPolygonStyle
+                    val polygonStyle = layer.defaultPolygonStyle
                     polygonStyle.strokeColor = android.graphics.Color.BLUE // Color de la línea
-                    polygonStyle.strokeWidth = 4f // Grosor
-                    //polygonStyle.fillColor =
-                        //android.graphics.Color.argb(30, 0, 0, 255) // Relleno azul muy transparente
+                    polygonStyle.strokeWidth = 6f // Grosor
+
                     layer.setOnFeatureClickListener { feature ->
-
-                        // Aplicamos estilo de "Resaltado" a la comuna tocada
-                        val highlightStyle = GeoJsonPolygonStyle().apply {
-                            strokeColor = android.graphics.Color.RED
-                            strokeWidth = 8f
-                            fillColor = android.graphics.Color.argb(60, 255, 0, 0)
-                        }
-                        feature.apply { polygonStyle = highlightStyle }
-
-                        // Esto busca el centro geométrico de la comuna y mueve la cámara
-                        if (feature.geometry is GeoJsonPolygon || feature.geometry is GeoJsonMultiPolygon) {
-                            // Nota: Para centrar polígonos complejos se suele usar LatLngBounds
-                            // Pero por ahora, un simple mensaje de confirmación es suficiente para no marear al usuario.
-                        }
                         //obtenes el numero de comuna y obtnemos los barrios que lo componen
-                        val comuna = feature.getProperty("comuna")
+                        val comunaId = feature.getProperty("comuna")?.toIntOrNull() ?: 0
                         val barrios = feature.getProperty("barrios")
+                        onComunaSelected(comunaId, barrios.split(", "))
+                        // Esto busca el centro geométrico de la comuna y mueve la cámara
+                        val centro = obtenerCentroide(feature.geometry)
 
+                        if (centro != null) {
+                            map.addMarker(
+                                MarkerOptions()
+                                    .position(centro)
+                                    .icon(crearBitmapDeTexto(context, "Comuna $comunaId"))
+                                    .anchor(0.5f, 0.5f) // Centra el texto exactamente en el punto
+                                    .zIndex(1.0f) // Asegura que esté por encima del polígono
+                            )
+                        }
                     }
                     layer.addLayerToMap()
                 } catch (e: Exception) {
@@ -110,30 +109,61 @@ fun MapComponent(
                         state = MarkerState(position = LatLng(it.latitude, it.longitude)),
                         title = comisaria.name,
                         snippet = "Dirección: ${comisaria.address}\nBarrio: ${comisaria.neighborhood}",
-                        icon = policeIcon
+                        icon = policeIcon,
                     )
                 }
             }
-            //pintar hospitales(icono rojo)
-//            hospitales.forEach { hospitales->
-//                hospitales.location?.let {
-//                    Marker(
-//                        state = MarkerState(position = LatLng(it.latitude, it.longitude)),
-//                        title = hospitales.name,
-//                        icon = BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
-//                    )
-//                }
-//            }
         }
     }
 
 }
+fun crearBitmapDeTexto(context: Context, texto: String): BitmapDescriptor {
+    val paint = Paint().apply {
+        color = android.graphics.Color.BLACK // Color del texto
+        textSize = 40f // Tamaño
+        isFakeBoldText = true // Negrita
+        textAlign = Paint.Align.CENTER
+    }
 
-fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
-    val drawable = ContextCompat.getDrawable(context, vectorResId) ?: return null
-    drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-    val bm = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(bm)
-    drawable.draw(canvas)
-    return BitmapDescriptorFactory.fromBitmap(bm)
+    val baseline = -paint.ascent()
+    val width = (paint.measureText(texto) + 10).toInt()
+    val height = (baseline + paint.descent() + 10).toInt()
+
+    val image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+    val canvas = Canvas(image)
+    canvas.drawText(texto, width / 2f, baseline, paint)
+
+    return BitmapDescriptorFactory.fromBitmap(image)
 }
+fun obtenerCentroide(geometry: Geometry<*>): LatLng? {
+    // Para simplificar, si es un polígono, tomamos el primer punto o calculamos el promedio
+    // En GeoJsonLayer, las geometrías pueden ser complejas, pero podemos obtener una lista de puntos
+    return when (geometry) {
+        is GeoJsonPolygon -> {
+            val points = geometry.coordinates[0]
+            var lat = 0.0
+            var lng = 0.0
+            for (p in points) {
+                lat += p.latitude
+                lng += p.longitude
+            }
+            LatLng(lat / points.size, lng / points.size)
+        }
+        is GeoJsonMultiPolygon -> {
+            // En MultiPolígono, tomamos el primer polígono para centrar el texto
+            val firstPolygon = geometry.polygons[0]
+            val points = firstPolygon.coordinates[0]
+            LatLng(points[0].latitude, points[0].longitude)
+        }
+        else -> null
+    }
+}
+
+//fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
+//    val drawable = ContextCompat.getDrawable(context, vectorResId) ?: return null
+//    drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+//    val bm = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
+//    val canvas = Canvas(bm)
+//    drawable.draw(canvas)
+//    return BitmapDescriptorFactory.fromBitmap(bm)
+//}

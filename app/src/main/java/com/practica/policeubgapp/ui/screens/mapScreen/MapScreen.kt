@@ -1,10 +1,15 @@
 package com.practica.policeubgapp.ui.screens.mapScreen
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
@@ -23,11 +28,10 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.gms.maps.model.CameraPosition
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
 import com.google.maps.android.compose.rememberCameraPositionState
+import com.practica.policeubgapp.domain.models.DatosPanel
 import com.practica.policeubgapp.ui.components.BottomBarComponent
-import com.practica.policeubgapp.ui.components.KmProgressBar
+import com.practica.policeubgapp.ui.components.CardInformative
 import com.practica.policeubgapp.ui.components.MapComponent
 import com.practica.policeubgapp.ui.components.TopAppBarComponent
 
@@ -38,21 +42,12 @@ import com.practica.policeubgapp.ui.components.TopAppBarComponent
 fun MapScreen(
     navController: NavHostController,
 ) {
-
-    val mapScrenViewModel: MapScreenViewModel = hiltViewModel()
-
-    val comisarias by mapScrenViewModel.comisarias.collectAsState()
-    val hospitales by mapScrenViewModel.hospitales.collectAsState()
-
-    val cabaBounds = LatLngBounds(
-        LatLng(-34.705, -58.531), // Suroeste
-        LatLng(-34.526, -58.335)  // Noreste
-    )
-
+    val mapScreenViewModel: MapScreenViewModel = hiltViewModel()
+    val comisarias by mapScreenViewModel.comisarias.collectAsState()
+    val infoComuna by mapScreenViewModel.comunaSeleccionada.collectAsState()
     val cameraPositionState = rememberCameraPositionState {
-        position = CameraPosition.fromLatLngZoom(mapScrenViewModel.cabaCenter, 12f)
+        position = CameraPosition.fromLatLngZoom(mapScreenViewModel.cabaCenter, 12f)
     }
-
     val locationPermissionsState = rememberMultiplePermissionsState(
         listOf(
             android.Manifest.permission.ACCESS_FINE_LOCATION,
@@ -83,10 +78,18 @@ fun MapScreen(
                         .fillMaxSize()
                         .weight(1f),
                     cameraPositionState = cameraPositionState,
-                    cabaBounds = cabaBounds,
                     comisarias = comisarias,
-                    hospitales = hospitales
-                )
+                ){
+                    comuna, barrios ->
+                    mapScreenViewModel.seleccionarComuna(comuna, barrios)
+                }
+                AnimatedVisibility(
+                    visible = infoComuna != null,
+                    enter = slideInVertically(initialOffsetY = { it }),
+                    exit = slideOutVertically(targetOffsetY = { it })
+                ) {
+                    CardInformative(infoComuna = infoComuna,modifier = Modifier.fillMaxWidth().heightIn(max = 350.dp))
+                }
             } else {
                 // NO TIENE PERMISO: Mostramos pantalla de solicitud
                 Column(
@@ -116,6 +119,7 @@ fun MapScreen(
     }
 
 }
+
 @Preview(showBackground = true)
 @Composable
 fun MapScreenPreview(){

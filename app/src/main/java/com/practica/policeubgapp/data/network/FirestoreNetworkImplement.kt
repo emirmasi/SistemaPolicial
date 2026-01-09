@@ -3,6 +3,7 @@ package com.practica.policeubgapp.data.network
 import android.util.Log
 import com.google.firebase.firestore.FirebaseFirestore
 import com.practica.policeubgapp.domain.models.Comisaria
+import com.practica.policeubgapp.domain.models.Hospital
 import com.practica.policeubgapp.domain.models.PendingService
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.Publicity
@@ -50,6 +51,18 @@ class FirestoreNetworkImplement @Inject constructor(
              snapshot.toObjects(Comisaria::class.java)
         }catch (e: Exception){
             Log.e("firestoreNetworkImplemt","Error al obtener las comisarias",e)
+            emptyList()
+        }
+    }
+
+    override suspend fun getHospitales(): List<Hospital> {
+        return try {
+            val snapshot = firestore.collection("hospitales")
+                .get()
+                .await()
+            snapshot.toObjects(Hospital::class.java)
+        }catch (e: Exception){
+            Log.e("firestoreNetworkImplemt","Error al obtener los hospitales",e)
             emptyList()
         }
     }

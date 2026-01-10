@@ -29,14 +29,9 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.rememberMultiplePermissionsState
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.maps.android.compose.rememberCameraPositionState
-import com.practica.policeubgapp.domain.models.DatosPanel
-import com.practica.policeubgapp.ui.components.BottomBarComponent
 import com.practica.policeubgapp.ui.components.CardInformative
 import com.practica.policeubgapp.ui.components.MapComponent
-import com.practica.policeubgapp.ui.components.TopAppBarComponent
 
-//en este componente vamos a mostrar el mapa interactivo con las burbujas y las cant de km recorridos
-//dependiendo del estado que se encuentre el efectivo
 @OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun MapScreen(
@@ -54,23 +49,14 @@ fun MapScreen(
             android.Manifest.permission.ACCESS_COARSE_LOCATION
         )
     )
-    Scaffold(
-        topBar = {
-            TopAppBarComponent(
-                title = "Mapa de servicios"
-            ) {
 
-            }
-        },
-        bottomBar = { BottomBarComponent(navController) }
-    ) {
+    Scaffold {
         innerPadding->
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
-
-            ) {
+                .padding(innerPadding)
+        ) {
             if (locationPermissionsState.allPermissionsGranted) {
                 // SI TIENE PERMISO: Mostramos el mapa
                 MapComponent(
@@ -79,8 +65,7 @@ fun MapScreen(
                         .weight(1f),
                     cameraPositionState = cameraPositionState,
                     comisarias = comisarias,
-                ){
-                    comuna, barrios ->
+                ) { comuna, barrios ->
                     mapScreenViewModel.seleccionarComuna(comuna, barrios)
                 }
                 AnimatedVisibility(
@@ -88,7 +73,11 @@ fun MapScreen(
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it })
                 ) {
-                    CardInformative(infoComuna = infoComuna,modifier = Modifier.fillMaxWidth().heightIn(max = 350.dp))
+                    CardInformative(
+                        infoComuna = infoComuna, modifier = Modifier
+                            .fillMaxWidth()
+                            .heightIn(max = 350.dp)
+                    )
                 }
             } else {
                 // NO TIENE PERMISO: Mostramos pantalla de solicitud
@@ -114,7 +103,6 @@ fun MapScreen(
                     }
                 }
             }
-            //KmProgressBar(7.5f) no vamos a mostrar el progreso , esta pantalla se va encargar de solo mostrar los hospitales
         }
     }
 

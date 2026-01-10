@@ -12,6 +12,7 @@ import com.practica.policeubgapp.ui.screens.loginScreen.LoginScreen
 import com.practica.policeubgapp.ui.screens.mainScreen.MainScreen
 import com.practica.policeubgapp.ui.screens.mapScreen.MapScreen
 import com.practica.policeubgapp.ui.screens.ServiceScreen
+import com.practica.policeubgapp.ui.screens.profileScreen.ProfileScreen
 import com.practica.policeubgapp.ui.screens.splashScreen.SplashScreen
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -56,6 +57,10 @@ fun InternalNavComponent(
         composable(route = NavigationRoutes.Map.route){
             MapScreen(internalController)
         }
+        composable(route = NavigationRoutes.Profile.route){
+            ProfileScreen(navController = internalController)
+        }
+
     }
 
 }

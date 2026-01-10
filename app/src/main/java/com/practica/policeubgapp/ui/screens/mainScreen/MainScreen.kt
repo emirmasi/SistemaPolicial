@@ -51,92 +51,39 @@ fun MainScreen( controller: NavHostController) {
     val internalController = rememberNavController()
     val navBackStackEntry by internalController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
-    val scope = rememberCoroutineScope ()
-    val drawerState = rememberDrawerState(DrawerValue.Closed)
 
-    val mainVm : MainScreenViewModel = hiltViewModel()
-
-    ModalNavigationDrawer(
-        drawerContent = {
-            Column(
-                modifier =
-                    Modifier
-                        .padding(horizontal = 16.dp)
-                        .verticalScroll(rememberScrollState()),
-            ) {
-                Spacer(Modifier.height(12.dp))
-                DataPoliceComponent(
-                    datePolice =
-                        PoliceDate(
-                            7960,
-                            "Masi",
-                            "Isaias",
-                            Rank.INSPECTOR,
-                            department = "comisaria 3b",
-                            DISTRICT.C12,
-                            "https://i0.wp.com/www.palermomio.com.ar/wp-content/uploads/2017/01/PoliciaCiudadLogo.png?resize=250%2C187&ssl=1",
-                        ),
-                )
-                NavigationDrawerItem(
-                    label = { Text("Mis servicios") },
-                    selected = currentRoute == NavigationRoutes.ServicesData.route,
-                    onClick = {
-                        internalController.navigate(route = NavigationRoutes.ServicesData.route) {
-                            popUpTo(internalController.graph.startDestinationId) { saveState = true }
-                            launchSingleTop = true
-                            restoreState = true
+    Scaffold(
+        topBar = {
+            if (currentRoute != NavigationRoutes.Login.route && currentRoute != NavigationRoutes.Profile.route) {
+                TopAppBarComponent(
+                    title = "",
+                    navigationIcon = {
+                        IconButton(
+                            onClick = {
+                                internalController.navigate(NavigationRoutes.Profile.route) {
+                                    // Esto evita que se acumulen múltiples pantallas de perfil
+                                    launchSingleTop = true
+                                    // Si quieres que al volver siempre vayas al Home:
+                                    popUpTo(NavigationRoutes.Home.route) { saveState = true }
+                                }
+                            }
+                        ) {
+                            Icon(
+                                painter = painterResource(R.drawable.baseline_person_24),
+                                contentDescription = "perfil"
+                            )
                         }
-                        scope.launch { drawerState.close() }
-                    },
-                )
-                NavigationDrawerItem(
-                    label = { Text("Salir") },
-                    selected = false,
-                    onClick = {
-                        //aca debe ir el logout
-                        mainVm.signOut()
-                        controller.navigate(route = NavigationRoutes.Login.route) {
-                            popUpTo(0) { inclusive = true }
-                        }
-                        scope.launch { drawerState.close() }
-                    },
+                    }
                 )
             }
         },
-        drawerState = drawerState,
-        scrimColor = MaterialTheme.colorScheme.primaryContainer,
-    ) {
-        Scaffold(
-            topBar = {
-                if(currentRoute != NavigationRoutes.Login.route){
-                    TopAppBarComponent(
-                        title = "Hola, inspector masi", // /aca va el estado de la
-                        navigationIcon = {
-                            IconButton(
-                                onClick = {
-                                    scope.launch {
-                                        if(drawerState.isClosed){
-                                            drawerState.open()
-                                        } else {
-                                            drawerState.close()
-                                        }
-                                    }
-                                }
-                            ) {
-                                Icon(painter = painterResource(R.drawable.baseline_menu_24),
-                                    contentDescription = "Menu")
-                            }
-                        }
-                    )
-                }
-            },
-            bottomBar = {
-                    BottomBarComponent(navController = internalController)
-            },
-        ) { innerPadding ->
-            InternalNavComponent(internalController = internalController)
-        }
+        bottomBar = {
+            BottomBarComponent(navController = internalController)
+        },
+    ) { innerPadding ->
+        InternalNavComponent(internalController = internalController)
     }
+
 }
 
 @RequiresApi(Build.VERSION_CODES.P)
@@ -148,18 +95,3 @@ fun MainScreenPreview() {
     )
 }
 
-// @Preview(showBackground = true)
-// @Composable
-// fun MainScreenPreview() {
-//    MaterialTheme {
-//        // En lugar de llamar a MainScreen(), dibuja el componente visual
-//        // que quieres probar (ej. el Drawer o el Scaffold con un texto dummy)
-//        Scaffold(
-//            topBar = { /* Un TopBar estático */ }
-//        ) { padding ->
-//            Column(Modifier.padding(padding)) {
-//                Text("Simulación de pantalla interna")
-//            }
-//        }
-//    }
-// }

@@ -1,11 +1,6 @@
 package com.practica.policeubgapp.ui.components
 
-import android.R.attr.textSize
-import android.content.Context
-import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Paint
 import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,8 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.core.content.ContextCompat
-import com.google.android.gms.maps.model.BitmapDescriptor
+import androidx.core.graphics.scale
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.maps.android.compose.CameraPositionState
@@ -26,15 +20,8 @@ import com.google.maps.android.compose.MapsComposeExperimentalApi
 import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.data.geojson.GeoJsonLayer
-import com.google.maps.android.data.geojson.GeoJsonMultiPolygon
-import com.google.maps.android.data.geojson.GeoJsonPolygon
-import com.google.maps.android.data.geojson.GeoJsonPolygonStyle
 import com.practica.policeubgapp.R
 import com.practica.policeubgapp.domain.models.Comisaria
-import com.practica.policeubgapp.domain.models.DatosPanel
-import androidx.core.graphics.scale
-import com.google.android.gms.maps.model.MarkerOptions
-import com.google.maps.android.data.Geometry
 
 @OptIn(MapsComposeExperimentalApi::class)
 @Composable
@@ -78,18 +65,6 @@ fun MapComponent(
                         val comunaId = feature.getProperty("comuna")?.toIntOrNull() ?: 0
                         val barrios = feature.getProperty("barrios")
                         onComunaSelected(comunaId, barrios.split(", "))
-                        // Esto busca el centro geométrico de la comuna y mueve la cámara
-                        val centro = obtenerCentroide(feature.geometry)
-
-                        if (centro != null) {
-                            map.addMarker(
-                                MarkerOptions()
-                                    .position(centro)
-                                    .icon(crearBitmapDeTexto(context, "Comuna $comunaId"))
-                                    .anchor(0.5f, 0.5f) // Centra el texto exactamente en el punto
-                                    .zIndex(1.0f) // Asegura que esté por encima del polígono
-                            )
-                        }
                     }
                     layer.addLayerToMap()
                 } catch (e: Exception) {
@@ -115,55 +90,4 @@ fun MapComponent(
             }
         }
     }
-
 }
-fun crearBitmapDeTexto(context: Context, texto: String): BitmapDescriptor {
-    val paint = Paint().apply {
-        color = android.graphics.Color.BLACK // Color del texto
-        textSize = 40f // Tamaño
-        isFakeBoldText = true // Negrita
-        textAlign = Paint.Align.CENTER
-    }
-
-    val baseline = -paint.ascent()
-    val width = (paint.measureText(texto) + 10).toInt()
-    val height = (baseline + paint.descent() + 10).toInt()
-
-    val image = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-    val canvas = Canvas(image)
-    canvas.drawText(texto, width / 2f, baseline, paint)
-
-    return BitmapDescriptorFactory.fromBitmap(image)
-}
-fun obtenerCentroide(geometry: Geometry<*>): LatLng? {
-    // Para simplificar, si es un polígono, tomamos el primer punto o calculamos el promedio
-    // En GeoJsonLayer, las geometrías pueden ser complejas, pero podemos obtener una lista de puntos
-    return when (geometry) {
-        is GeoJsonPolygon -> {
-            val points = geometry.coordinates[0]
-            var lat = 0.0
-            var lng = 0.0
-            for (p in points) {
-                lat += p.latitude
-                lng += p.longitude
-            }
-            LatLng(lat / points.size, lng / points.size)
-        }
-        is GeoJsonMultiPolygon -> {
-            // En MultiPolígono, tomamos el primer polígono para centrar el texto
-            val firstPolygon = geometry.polygons[0]
-            val points = firstPolygon.coordinates[0]
-            LatLng(points[0].latitude, points[0].longitude)
-        }
-        else -> null
-    }
-}
-
-//fun bitmapDescriptorFromVector(context: Context, vectorResId: Int): BitmapDescriptor? {
-//    val drawable = ContextCompat.getDrawable(context, vectorResId) ?: return null
-//    drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-//    val bm = Bitmap.createBitmap(drawable.intrinsicWidth, drawable.intrinsicHeight, Bitmap.Config.ARGB_8888)
-//    val canvas = Canvas(bm)
-//    drawable.draw(canvas)
-//    return BitmapDescriptorFactory.fromBitmap(bm)
-//}

@@ -13,6 +13,8 @@ sealed class NavigationRoutes(
     object ServicesData : NavigationRoutes("dataServiceScreen","servicios",R.drawable.baseline_format_list_numbered_24)
     object MainScreen : NavigationRoutes("mainScreen","main",R.drawable.baseline_home_24)
     object Map : NavigationRoutes("mapScreen","mapa",R.drawable.baseline_map_24)
-    companion object
+
+    object Profile : NavigationRoutes("profileScreen","perfil",R.drawable.baseline_person_24)
+
 
 }

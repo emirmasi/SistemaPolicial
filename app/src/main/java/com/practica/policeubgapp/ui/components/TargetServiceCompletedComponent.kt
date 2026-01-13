@@ -25,11 +25,12 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.practica.policeubgapp.R
-import com.practica.policeubgapp.domain.models.DISTRICT
-import com.practica.policeubgapp.domain.models.PoliceDate
-import com.practica.policeubgapp.domain.models.SCHEDULE
-import com.practica.policeubgapp.domain.models.Rank
 import com.practica.policeubgapp.domain.models.CompletedService
+import com.practica.policeubgapp.domain.models.DISTRICT
+import com.practica.policeubgapp.domain.models.PoliceDateUI
+import com.practica.policeubgapp.domain.models.RANK
+import com.practica.policeubgapp.domain.models.SCHEDULE
+import com.practica.policeubgapp.domain.models.STATE
 import com.practica.policeubgapp.domain.models.TYPESERVICE
 import com.practica.policeubgapp.domain.models.capitalizeFirst
 
@@ -113,7 +114,9 @@ fun DataServiceComponent(
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "Fiscalizado por :\n${service.getSupervised().getRank().toString().capitalizeFirst()} ${service.getSupervised().getLastName().capitalizeFirst()}",
+                    text = "Fiscalizado por :\n${
+                        service.getSupervised().getRank().capitalizeFirst()
+                    } ${service.getSupervised().lastName.capitalizeFirst()}",
                     style = MaterialTheme.typography.bodySmall,
                     textAlign = TextAlign.End
                 )
@@ -134,13 +137,14 @@ fun DataServiceComponentPreview(){
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
             cantKm = 7.5f,
-            supervised = PoliceDate(
+            supervised = PoliceDateUI(
                 lp = 1234,
                 lastName = "masi",
                 firstName = "Juan Perez",
-                rank = Rank.INSPECTOR,
+                rank = RANK.INSPECTOR,
                 department = "policia",
                 district = DISTRICT.C12,
+                state = STATE.Efectivo,
                 photoUrl = "foto"
             )
         )

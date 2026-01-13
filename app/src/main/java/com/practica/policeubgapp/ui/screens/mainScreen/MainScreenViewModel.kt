@@ -2,8 +2,6 @@ package com.practica.policeubgapp.ui.screens.mainScreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.firebase.auth.FirebaseUser
-import com.practica.policeubgapp.domain.models.PoliceDate
 import com.practica.policeubgapp.domain.usecases.GetCurrentUser
 import com.practica.policeubgapp.domain.usecases.SignOut
 import dagger.hilt.android.lifecycle.HiltViewModel

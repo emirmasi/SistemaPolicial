@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 fun TopAppBarComponent(
     title: String,
     navigationIcon: @Composable () -> Unit,
+    actions: @Composable () -> Unit
 ){
     TopAppBar(
         title = {
@@ -24,7 +25,7 @@ fun TopAppBarComponent(
             navigationIcon()
         },
         actions = {
-
+            actions()
         }
     )
 }
@@ -33,7 +34,8 @@ fun TopAppBarComponent(
 @Composable
 fun TopAppBarPreview(){
     TopAppBarComponent(
-        "Servicios realizados"
+        "Servicios realizados",
+        { }
     ) {
 
     }

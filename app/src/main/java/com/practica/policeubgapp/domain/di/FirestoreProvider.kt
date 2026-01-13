@@ -5,6 +5,7 @@ import com.practica.policeubgapp.domain.services.FirestoreService
 import com.practica.policeubgapp.domain.usecases.GetComisarias
 import com.practica.policeubgapp.domain.usecases.GetHospitales
 import com.practica.policeubgapp.domain.usecases.GetListOfServicePending
+import com.practica.policeubgapp.domain.usecases.GetPoliceDate
 import com.practica.policeubgapp.domain.usecases.GetPublicity
 import dagger.Module
 import dagger.Provides
@@ -33,6 +34,12 @@ object FirestoreProvider {
     @Provides
     fun provideGetHospitales(firestoreService: FirestoreService): GetHospitales {
         return firestoreService
+    }
+
+    @Provides
+    fun provideGetPoliceDate(firestoreService: FirestoreService): GetPoliceDate {
+        return firestoreService
+
     }
 
 }

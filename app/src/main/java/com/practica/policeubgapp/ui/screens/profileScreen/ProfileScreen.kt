@@ -42,6 +42,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.practica.policeubgapp.R
+
+///mejorar el estado poner en servicio pending el estado del usuario
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(
@@ -88,7 +90,7 @@ fun ProfileScreen(
                 Column {
                     // 1. FOTO (350dp de alto)
                     AsyncImage(
-                        model = police?.getPhotoUrl(),
+                        model = police?.photoUrl,
                         contentDescription = "Foto del Oficial",
                         modifier = Modifier
                             .fillMaxWidth()
@@ -107,14 +109,14 @@ fun ProfileScreen(
                     ) {
                         // Nombre y Apellido
                         Text(
-                            text = "${police?.getFirstName()} ${police?.getLastName()}".uppercase(),
+                            text = "${police?.firstName} ${police?.lastName}".uppercase(),
                             style = MaterialTheme.typography.headlineMedium,
                             fontWeight = FontWeight.ExtraBold,
                             color = Color(0xFF1A237E)
                         )
 
                         Text(
-                            text = police?.getRank()?.name.toString(), // Asumiendo que rank es un Enum o tiene name
+                            text = police?.getRank().toString(), // Asumiendo que rank es un Enum o tiene name
                             style = MaterialTheme.typography.titleLarge,
                             color = Color.Gray,
                             modifier = Modifier.padding(bottom = 16.dp)
@@ -124,9 +126,9 @@ fun ProfileScreen(
                         Spacer(modifier = Modifier.height(16.dp))
 
                         // Grilla de detalles técnicos
-                        ProfileDetailItem(label = "Legajo Personal", value = "LP ${police?.getLp()}")
-                        ProfileDetailItem(label = "Departamento", value = police?.getDepartment().toString())
-                        ProfileDetailItem(label = "Jurisdicción", value = police?.getDistrict()?.name.toString())
+                        ProfileDetailItem(label = "Legajo Personal", value = "${police?.lp}")
+                        ProfileDetailItem(label = "Comisaria", value = police?.department.toString())
+                        ProfileDetailItem(label = "Jurisdicción", value = police?.district.toString())
 
                         // Sello de "Activo"
                         Box(
@@ -137,7 +139,7 @@ fun ProfileScreen(
                                 .padding(horizontal = 12.dp, vertical = 4.dp)
                         ) {
                             Text(
-                                text = "ESTADO: ACTIVO",
+                                text = "ESTADO: ${police?.state}",
                                 color = Color(0xFF4CAF50),
                                 fontWeight = FontWeight.Bold,
                                 style = MaterialTheme.typography.labelMedium

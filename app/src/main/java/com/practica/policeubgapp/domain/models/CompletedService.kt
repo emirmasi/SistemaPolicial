@@ -7,7 +7,7 @@ class CompletedService(
     private val schedule: SCHEDULE,
     private val location: String,
     private val cantKm: Float,
-    private val supervised: PoliceDate
+    private val supervised: PoliceDateUI
 ) {
     fun getLp(): Int {
         return lp
@@ -27,7 +27,7 @@ class CompletedService(
     fun getCantKm(): Float {
         return cantKm
     }
-    fun getSupervised(): PoliceDate {
+    fun getSupervised(): PoliceDateUI {
         return supervised
     }
 

@@ -10,23 +10,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.practica.policeubgapp.domain.models.DISTRICT
-import com.practica.policeubgapp.domain.models.PoliceDate
-import com.practica.policeubgapp.domain.models.Rank
+import com.practica.policeubgapp.domain.models.PoliceDateUI
+import com.practica.policeubgapp.domain.models.RANK
+import com.practica.policeubgapp.domain.models.STATE
 
 @Composable
-fun DataPoliceComponent(datePolice: PoliceDate){
+fun DataPoliceComponent(datePolice: PoliceDateUI){
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp),
         horizontalArrangement = Arrangement.spacedBy(16.dp)
     ) {
-        CircleImage(datePolice.getPhotoUrl())
+        CircleImage(datePolice.photoUrl)
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            TextDataShowComponent("Apellido y nombre",datePolice.getLastName()+" "+datePolice.getFirstName())
-            TextDataShowComponent("Jerarquia",datePolice.getRank().toString())
-            TextDataShowComponent("Dependencia",datePolice.getDepartment())
-            TextDataShowComponent("Comuna",datePolice.getDistrict().toString())
+            TextDataShowComponent("Apellido y nombre",datePolice.lastName+" "+datePolice.firstName)
+            TextDataShowComponent("Jerarquia",datePolice.getRank())
+            TextDataShowComponent("Dependencia",datePolice.department)
+            TextDataShowComponent("Comuna",datePolice.getDistrict())
         }
     }
 
@@ -37,6 +38,6 @@ fun DataPoliceComponent(datePolice: PoliceDate){
 @Preview(showBackground = true)
 @Composable
 fun DataPoliceComponentPreview(){
-    DataPoliceComponent(PoliceDate(7960,"Masi","Isaias", Rank.INSPECTOR, department = "comisaria 3b",
-        DISTRICT.C12,"https://i0.wp.com/www.palermomio.com.ar/wp-content/uploads/2017/01/PoliciaCiudadLogo.png?resize=250%2C187&ssl=1"))
+    DataPoliceComponent(PoliceDateUI(7960,"Masi","Isaias", RANK.INSPECTOR, department = "comisaria 3b",
+        DISTRICT.C12, STATE.Efectivo,"https://i0.wp.com/www.palermomio.com.ar/wp-content/uploads/2017/01/PoliciaCiudadLogo.png?resize=250%2C187&ssl=1"))
 }

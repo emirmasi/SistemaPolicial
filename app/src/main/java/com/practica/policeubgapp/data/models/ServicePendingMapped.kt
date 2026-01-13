@@ -1,7 +1,11 @@
-package com.practica.policeubgapp.domain.models
+package com.practica.policeubgapp.data.models
+
+import com.practica.policeubgapp.domain.models.PendingServiceUI
+import com.practica.policeubgapp.domain.models.SCHEDULE
+import com.practica.policeubgapp.domain.models.TYPESERVICE
 
 
-fun PendingService.toUIModel(): PendingServiceUI {
+fun PendingServiceModel.toUIModel(): PendingServiceUI {
     return PendingServiceUI(
         lp = this.lp,
         locationName = this.locationName,
@@ -11,7 +15,7 @@ fun PendingService.toUIModel(): PendingServiceUI {
         typeService = when (this.typeService.uppercase()) {
             "CONSIGNA" -> TYPESERVICE.CONSIGNA
             "UBG" -> TYPESERVICE.UBG
-            "SATURACION"-> TYPESERVICE.SATURACION
+            "SATURACION" -> TYPESERVICE.SATURACION
             else -> TYPESERVICE.UBG // Un valor por defecto por seguridad
         },
         schedule = when (this.schedule.uppercase()) {
@@ -19,6 +23,6 @@ fun PendingService.toUIModel(): PendingServiceUI {
             "TARDE" -> SCHEDULE.TARDE
             "NOCHE" -> SCHEDULE.NOCHE
             else -> SCHEDULE.MAÑANA
-        }
+        },
     )
 }

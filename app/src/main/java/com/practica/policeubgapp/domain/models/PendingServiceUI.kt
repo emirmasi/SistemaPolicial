@@ -3,7 +3,7 @@ package com.practica.policeubgapp.domain.models
 import com.google.firebase.firestore.GeoPoint
 
 data class PendingServiceUI(
-    private val lp: String,
+    private val lp: Int,
     private val typeService: TYPESERVICE,
     private val locationName: String,
     private val location: GeoPoint?,

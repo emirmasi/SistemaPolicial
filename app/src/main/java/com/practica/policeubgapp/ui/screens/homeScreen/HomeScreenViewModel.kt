@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.practica.policeubgapp.domain.models.PendingService
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.Publicity
 import com.practica.policeubgapp.domain.usecases.GetCurrentUser

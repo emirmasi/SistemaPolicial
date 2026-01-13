@@ -1,6 +1,6 @@
 package com.practica.policeubgapp.domain.models
 
-enum class Rank {
+enum class RANK {
     OFICIAL,
     OFPRIMERO,
     OFMAYOR,

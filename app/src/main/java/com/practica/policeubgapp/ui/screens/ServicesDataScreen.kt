@@ -14,9 +14,10 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.practica.policeubgapp.domain.models.CompletedService
 import com.practica.policeubgapp.domain.models.DISTRICT
-import com.practica.policeubgapp.domain.models.PoliceDate
-import com.practica.policeubgapp.domain.models.Rank
+import com.practica.policeubgapp.domain.models.PoliceDateUI
+import com.practica.policeubgapp.domain.models.RANK
 import com.practica.policeubgapp.domain.models.SCHEDULE
+import com.practica.policeubgapp.domain.models.STATE
 import com.practica.policeubgapp.domain.models.TYPESERVICE
 import com.practica.policeubgapp.ui.components.BottomBarComponent
 import com.practica.policeubgapp.ui.components.DataServiceComponent
@@ -37,13 +38,14 @@ fun ServiceScreen(
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
             cantKm = 7.5f,
-            supervised = PoliceDate(
+            supervised = PoliceDateUI(
                 lp = 1234,
                 lastName = "masi",
                 firstName = "Juan Perez",
-                rank = Rank.INSPECTOR,
+                rank = RANK.INSPECTOR,
                 department = "policia",
                 district = DISTRICT.C12,
+                state = STATE.Efectivo,
                 photoUrl = "foto"
             )
         ),
@@ -54,13 +56,14 @@ fun ServiceScreen(
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
             cantKm = 7.5f,
-            supervised = PoliceDate(
+            supervised = PoliceDateUI(
                 lp = 1234,
                 lastName = "masi",
                 firstName = "Juan Perez",
-                rank = Rank.INSPECTOR,
+                rank = RANK.INSPECTOR,
                 department = "policia",
                 district = DISTRICT.C12,
+                state = STATE.Efectivo,
                 photoUrl = "foto"
             )
         ),
@@ -71,13 +74,14 @@ fun ServiceScreen(
             schedule = SCHEDULE.MAÑANA,
             location = "av la plata",
             cantKm = 7.5f,
-            supervised = PoliceDate(
+            supervised = PoliceDateUI(
                 lp = 1234,
                 lastName = "masi",
                 firstName = "Juan Perez",
-                rank = Rank.INSPECTOR,
+                rank = RANK.INSPECTOR,
                 department = "policia",
                 district = DISTRICT.C12,
+                state = STATE.Efectivo,
                 photoUrl = "foto"
             )
         )
@@ -87,7 +91,8 @@ fun ServiceScreen(
             TopAppBarComponent(
                 "Servicios Realizados",
                 navigationIcon = {
-
+                },
+                actions = {
                 }
             )
         },

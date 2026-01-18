@@ -62,7 +62,8 @@ fun MapScreen(
                 MapComponent(
                     modifier = Modifier
                         .fillMaxSize()
-                        .weight(1f),
+                        .weight(1f)
+                        .padding(innerPadding),
                     cameraPositionState = cameraPositionState,
                     comisarias = comisarias,
                 ) { comuna, barrios ->
@@ -77,6 +78,7 @@ fun MapScreen(
                         infoComuna = infoComuna, modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(max = 350.dp)
+                            .padding(innerPadding)
                     )
                 }
             } else {

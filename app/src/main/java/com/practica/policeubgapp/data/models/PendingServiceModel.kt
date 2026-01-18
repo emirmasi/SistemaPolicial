@@ -1,5 +1,6 @@
 package com.practica.policeubgapp.data.models
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 
 data class PendingServiceModel(
@@ -8,5 +9,5 @@ data class PendingServiceModel(
     val locationName: String = "",
     val location: GeoPoint? = null,
     val schedule: String = "",
-    val date: String = "",
+    val date: Timestamp = Timestamp.now()
 )

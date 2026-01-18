@@ -20,25 +20,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.practica.policeubgapp.R
-import com.practica.policeubgapp.domain.models.CompletedService
-import com.practica.policeubgapp.domain.models.DISTRICT
-import com.practica.policeubgapp.domain.models.PoliceDateUI
-import com.practica.policeubgapp.domain.models.RANK
-import com.practica.policeubgapp.domain.models.SCHEDULE
-import com.practica.policeubgapp.domain.models.STATE
-import com.practica.policeubgapp.domain.models.TYPESERVICE
+import com.practica.policeubgapp.domain.models.CompletedServiceUI
 import com.practica.policeubgapp.domain.models.capitalizeFirst
 
 //aca deberia ir por estado un item de un servicio
 
 @Composable
 fun DataServiceComponent(
-    service: CompletedService
+    service: CompletedServiceUI
 ) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -67,7 +59,7 @@ fun DataServiceComponent(
                     Spacer(modifier = Modifier.width(4.dp)
                     )
                     Text(
-                        text = service.getSchedule().timeRange,
+                        text = service.schedule.timeRange,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodySmall
@@ -80,7 +72,7 @@ fun DataServiceComponent(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = service.getLocation().capitalizeFirst(),
+                        text = service.locationName.capitalizeFirst(),
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodySmall
@@ -94,7 +86,7 @@ fun DataServiceComponent(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = "${service.getCantKm()} KM",
+                        text = "${service.totalDistanceKm} KM",
                         style = MaterialTheme.typography.bodySmall
                     )
                 }
@@ -106,19 +98,20 @@ fun DataServiceComponent(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
-                    text = service.getDate(),
+                    text = service.date,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = service.getTypeService(),
+                    text = service.typeService.name,
                     style = MaterialTheme.typography.bodySmall
                 )
                 Text(
-                    text = "Fiscalizado por :\n${
-                        service.getSupervised().getRank().capitalizeFirst()
-                    } ${service.getSupervised().lastName.capitalizeFirst()}",
-                    style = MaterialTheme.typography.bodySmall,
-                    textAlign = TextAlign.End
+                    text = "${service.startTime} hs - ${service.endTime} hs",
+                    style = MaterialTheme.typography.bodySmall
+                )
+                Text(
+                    text = "${service.totalHours} Horas",
+                    style = MaterialTheme.typography.bodySmall
                 )
             }
         }
@@ -126,27 +119,21 @@ fun DataServiceComponent(
 }
 
 
-@Preview(showBackground = true)
-@Composable
-fun DataServiceComponentPreview(){
-    DataServiceComponent(
-        service = CompletedService(
-            lp = 7890,
-            typeService = TYPESERVICE.UBG,
-            date = "28/9/2025",
-            schedule = SCHEDULE.MAÑANA,
-            location = "av la plata",
-            cantKm = 7.5f,
-            supervised = PoliceDateUI(
-                lp = 1234,
-                lastName = "masi",
-                firstName = "Juan Perez",
-                rank = RANK.INSPECTOR,
-                department = "policia",
-                district = DISTRICT.C12,
-                state = STATE.Efectivo,
-                photoUrl = "foto"
-            )
-        )
-    )
-}
+//@Preview(showBackground = true)
+//@Composable
+//fun DataServiceComponentPreview(){
+//    DataServiceComponent(
+//        service = CompletedService(
+//            lp = 6252,,
+//        date = , // Fecha del servicio typeService: TYPESERVICE,
+//    schedule: SCHEDULE, // Tu enum de franja horaria (mañana/tarde/noche)
+//     locationName: String,
+//     geoPoint: GeoPoint?,
+//        cantKm: Float,
+//     startTime: Timestamp,     // Hora exacta que tocó "Iniciar"
+//     endTime: Timestamp,       // Hora exacta que tocó "Terminar"
+//     totalHours: Double,       // Calculado (ej: 8.5 horas)
+//     totalDistanceKm: Float
+//        )
+//    )
+//}

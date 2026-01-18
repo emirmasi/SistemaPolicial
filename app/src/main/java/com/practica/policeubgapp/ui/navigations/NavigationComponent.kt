@@ -11,7 +11,7 @@ import com.practica.policeubgapp.ui.screens.homeScreen.HomeScreen
 import com.practica.policeubgapp.ui.screens.loginScreen.LoginScreen
 import com.practica.policeubgapp.ui.screens.mainScreen.MainScreen
 import com.practica.policeubgapp.ui.screens.mapScreen.MapScreen
-import com.practica.policeubgapp.ui.screens.ServiceScreen
+import com.practica.policeubgapp.ui.screens.serviceScreen.ServiceScreen
 import com.practica.policeubgapp.ui.screens.profileScreen.ProfileScreen
 import com.practica.policeubgapp.ui.screens.splashScreen.SplashScreen
 

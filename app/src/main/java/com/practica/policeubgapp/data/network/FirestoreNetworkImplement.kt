@@ -6,11 +6,13 @@ import com.practica.policeubgapp.domain.models.Comisaria
 import com.practica.policeubgapp.domain.models.Hospital
 import com.practica.policeubgapp.data.models.PendingServiceModel
 import com.practica.policeubgapp.data.models.PoliceDateModel
+import com.practica.policeubgapp.data.models.ServiceCompletedModel
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.PoliceDateUI
 import com.practica.policeubgapp.domain.models.Publicity
 import com.practica.policeubgapp.data.models.toUIModel
 import com.practica.policeubgapp.data.models.toUiModel
+import com.practica.policeubgapp.domain.models.CompletedServiceUI
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
@@ -67,7 +69,7 @@ class FirestoreNetworkImplement @Inject constructor(
                 .await()
             snapshot.toObjects(Hospital::class.java)
         }catch (e: Exception){
-            Log.e("firestoreNetworkImplemt","Error al obtener los hospitales",e)
+            Log.e("firestoreNetworkImplement","Error al obtener los hospitales",e)
             emptyList()
         }
     }
@@ -90,6 +92,38 @@ class FirestoreNetworkImplement @Inject constructor(
         } catch (e: Exception) {
             Log.e("firestoreNetworkImplemt", "Error al obtener los datos de la policia", e)
             throw e // Es mejor lanzar la excepción para que el ViewModel la maneje
+        }
+    }
+
+    override suspend fun getListServiceData(lp: String): List<CompletedServiceUI> {
+        val lpNumber = lp.toIntOrNull()
+            ?: throw Exception("El LP: $lp proporcionado no es un número válido")
+
+        return try {
+            val snapshot = firestore.collection("servicios_completados")
+                .whereEqualTo("lp", lpNumber)
+                .get()
+                .await()
+            val list = snapshot.toObjects(ServiceCompletedModel::class.java)
+            Log.e("firestoreNetworkImplemt","$list")
+            list.map { it.toUIModel() }
+        }catch (e: Exception){
+            Log.e("firestoreNetworkImplemt","Error al obtener los servicios completados",e)
+            emptyList()
+        }
+
+    }
+
+    override suspend fun uploadServiceComplete(service: CompletedServiceUI): Result<Unit> {
+        return try {
+            firestore.collection("servicios_completados")
+                .add(service) // Aquí pasas tu modelo denormalizado
+                .await() // Esperamos a que termine la subida
+
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Log.e("UploadService", "Error al subir: ${e.message}")
+            Result.failure(e)
         }
     }
 }

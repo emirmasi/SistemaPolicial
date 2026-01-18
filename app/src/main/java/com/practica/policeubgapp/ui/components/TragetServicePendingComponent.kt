@@ -19,11 +19,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.practica.policeubgapp.R
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.SCHEDULE
@@ -32,7 +34,8 @@ import com.practica.policeubgapp.domain.models.capitalizeFirst
 
 @Composable
 fun TargetPendingServiceComponent(
-    service: PendingServiceUI
+    service: PendingServiceUI,
+    onClickDetail: () -> Unit,
 ){
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
@@ -61,7 +64,7 @@ fun TargetPendingServiceComponent(
                     Spacer(modifier = Modifier.width(4.dp)
                     )
                     Text(
-                        text = service.getSchedule().timeRange,
+                        text = service.schedule.timeRange,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodySmall
@@ -74,7 +77,7 @@ fun TargetPendingServiceComponent(
                     )
                     Spacer(modifier = Modifier.width(4.dp))
                     Text(
-                        text = service.getLocationName().capitalizeFirst(),
+                        text = service.locationName.capitalizeFirst(),
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis,
                         style = MaterialTheme.typography.bodySmall
@@ -88,11 +91,11 @@ fun TargetPendingServiceComponent(
                 verticalArrangement = Arrangement.spacedBy(6.dp)
             ) {
                 Text(
-                    text = service.getDate(),
+                    text = service.date,
                     style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
                 )
                 Text(
-                    text = service.getTypeService().name,
+                    text = service.typeService.name,
                     style = MaterialTheme.typography.bodySmall
                 )
             }
@@ -100,7 +103,7 @@ fun TargetPendingServiceComponent(
 
         ElevatedButton(
             onClick = {
-                ///esto deberia llevar a un drowMenu donde se puede ver el maps
+                onClickDetail()
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -124,5 +127,7 @@ fun ShowTargetPreview(){
             schedule = SCHEDULE.TARDE,
             date = "20/05/2023"
         )
-    )
+    ){
+
+    }
 }

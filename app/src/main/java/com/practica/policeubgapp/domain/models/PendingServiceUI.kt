@@ -1,26 +1,15 @@
 package com.practica.policeubgapp.domain.models
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 
-data class PendingServiceUI(
-    private val lp: Int,
-    private val typeService: TYPESERVICE,
-    private val locationName: String,
-    private val location: GeoPoint?,
-    private val schedule: SCHEDULE,
-    private val date: String
-) {
-    fun getTypeService(): TYPESERVICE{
-        return typeService
-    }
-    fun getLocationName(): String{
-        return locationName
+//este date lo tengo que cambiar por timeStamp
 
-    }
-    fun getSchedule(): SCHEDULE{
-        return schedule
-    }
-    fun getDate(): String{
-        return date
-    }
-}
+data class PendingServiceUI(
+    val lp: Int,
+    val typeService: TYPESERVICE,
+    val locationName: String,
+    val location: GeoPoint?,
+    val schedule: SCHEDULE,
+    val date: String
+)

@@ -1,19 +1,17 @@
 package com.practica.policeubgapp.data.models
 
-import com.practica.policeubgapp.domain.models.PendingServiceUI
+import com.google.firebase.Timestamp
+import com.practica.policeubgapp.domain.models.CompletedServiceUI
 import com.practica.policeubgapp.domain.models.SCHEDULE
 import com.practica.policeubgapp.domain.models.TYPESERVICE
-import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
 import java.util.Locale
+import java.util.TimeZone
 
-fun PendingServiceModel.toUIModel(): PendingServiceUI {
-    return PendingServiceUI(
+fun ServiceCompletedModel.toUIModel(): CompletedServiceUI{
+    return CompletedServiceUI(
         lp = this.lp,
-        locationName = this.locationName,
-        location = this.location,
-        date = this.date.toLocalDateString(),
-        // Conversión segura de String a Enum
+        date = this.date?.toLocalDateString()?: "00:00",
         typeService = when (this.typeService.uppercase()) {
             "CONSIGNA" -> TYPESERVICE.CONSIGNA
             "UBG" -> TYPESERVICE.UBG
@@ -26,16 +24,20 @@ fun PendingServiceModel.toUIModel(): PendingServiceUI {
             "NOCHE" -> SCHEDULE.NOCHE
             else -> SCHEDULE.MAÑANA
         },
+        locationName = this.locationName,
+        geoPoint = this.geoPoint,
+        startTime = this.starTime?.toLocalTimeString()?:"00:00",
+        endTime = this.endTime?.toLocalTimeString()?:"00:00",
+        totalHours = this.totalHours,
+        totalDistanceKm = this.totalDistanceKm
     )
 }
 
-
-fun Timestamp.toLocalDateString(): String {
-    // Convertimos el Timestamp de Firebase a un Date de Java
+fun Timestamp.toLocalTimeString(): String {
     val date = this.toDate()
 
-    // Definimos el formato: dd (día), MM (mes), yyyy (año)
-    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-
+    // "HH" es formato 0-23 horas, "mm" son los minutos
+    val formatter = SimpleDateFormat("HH:mm", Locale.getDefault())
+    formatter.timeZone = TimeZone.getTimeZone("America/Argentina/Buenos_Aires")
     return formatter.format(date)
 }

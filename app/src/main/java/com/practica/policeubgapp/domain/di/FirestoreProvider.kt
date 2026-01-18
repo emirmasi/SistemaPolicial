@@ -7,6 +7,8 @@ import com.practica.policeubgapp.domain.usecases.GetHospitales
 import com.practica.policeubgapp.domain.usecases.GetListOfServicePending
 import com.practica.policeubgapp.domain.usecases.GetPoliceDate
 import com.practica.policeubgapp.domain.usecases.GetPublicity
+import com.practica.policeubgapp.domain.usecases.GetServiceData
+import com.practica.policeubgapp.domain.usecases.UploadCompleteService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,6 +42,15 @@ object FirestoreProvider {
     fun provideGetPoliceDate(firestoreService: FirestoreService): GetPoliceDate {
         return firestoreService
 
+    }
+    @Provides
+    fun provideGetServiceData(firestoreService: FirestoreService): GetServiceData {
+        return firestoreService
+
+    }
+    @Provides
+    fun provideUploadCompleteService(firestoreService: FirestoreService): UploadCompleteService {
+        return firestoreService
     }
 
 }

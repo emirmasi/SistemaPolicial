@@ -2,6 +2,7 @@ package com.practica.policeubgapp.data.repository
 
 import com.practica.policeubgapp.data.network.FirestoreNetworkInterface
 import com.practica.policeubgapp.domain.models.Comisaria
+import com.practica.policeubgapp.domain.models.CompletedServiceUI
 import com.practica.policeubgapp.domain.models.Hospital
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.PoliceDateUI
@@ -30,6 +31,16 @@ class FirestoreRepositoryImplement @Inject constructor(
 
     override suspend fun getPoliceDate(lp: String): PoliceDateUI {
         return firestoreNetworkInterface.getPoliceDate(lp)
+    }
+
+    override suspend fun getListServiceData(lp: String): List<CompletedServiceUI> {
+        return firestoreNetworkInterface.getListServiceData(lp)
+
+    }
+
+    override suspend fun uploadServiceComplete(service: CompletedServiceUI): Result<Unit> {
+        return firestoreNetworkInterface.uploadServiceComplete(service)
+
     }
 
 }

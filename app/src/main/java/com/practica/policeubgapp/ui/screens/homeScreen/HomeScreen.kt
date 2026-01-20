@@ -1,5 +1,8 @@
 package com.practica.policeubgapp.ui.screens.homeScreen
 
+import android.content.Intent
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -17,25 +20,28 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.practica.policeubgapp.data.location.LocationService
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.Publicity
 import com.practica.policeubgapp.ui.components.CarrouselComponent
 import com.practica.policeubgapp.ui.components.ServiceDetailSheet
 import com.practica.policeubgapp.ui.components.TargetPendingServiceComponent
+import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 
 
 ///en este home vamos a mostrar los servicios que tiene que realizar el efectivo y publicidad
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    navController: NavHostController
+    navController: NavHostController,
+    hViewModel: HomeScreenViewModel
 ){
-     val hViewModel: HomeScreenViewModel = hiltViewModel()
     val publicityList by hViewModel.publicity.observeAsState(initial = emptyList())
     val serviceList by hViewModel.listOfServices.observeAsState(initial = emptyList())
-
+    val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState()
-    var selectedService by remember { mutableStateOf<PendingServiceUI?>(null) }
+
     var showSheet by remember { mutableStateOf(false) }
     Column(
         modifier = Modifier
@@ -49,29 +55,38 @@ fun HomeScreen(
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(serviceList) { servicePendingUi ->
                 TargetPendingServiceComponent(servicePendingUi ){
-                    selectedService = servicePendingUi
+                    hViewModel.setSelectedPendingUI(servicePendingUi)
                     showSheet = true
                 }
             }
         }
     }
-    if (showSheet && selectedService != null) {
+    var selectedService = hViewModel.getSelectedPendingUI()
+    if (showSheet && selectedService!= null) {
         ServiceDetailSheet(
-            service = selectedService!!,
+            service = selectedService,
             sheetState = sheetState,
             onDismiss = {
                 showSheet = false
                 selectedService = null
             },
             onStartService = {
-               // navController.navigate()
+                val intent = Intent(context, LocationService::class.java)
+                context.startForegroundService(intent)
+                //aca tengo que eliminar el servicio de la lista
+
+                navController.navigate(NavigationRoutes.Deployment.route)
             }
         )
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Preview(showBackground = true)
 @Composable
 fun HomeScreenPreview(){
-    HomeScreen(navController = NavHostController(LocalContext.current))
+    HomeScreen(
+        navController = NavHostController(LocalContext.current),
+        hViewModel = hiltViewModel()
+    )
 }

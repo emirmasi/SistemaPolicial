@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.data.models
+package com.practica.policeubgapp.data.mapped
 
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.SCHEDULE
@@ -9,6 +9,7 @@ import java.util.Locale
 
 fun PendingServiceModel.toUIModel(): PendingServiceUI {
     return PendingServiceUI(
+        uid = this.uid,
         lp = this.lp,
         locationName = this.locationName,
         location = this.location,

@@ -33,7 +33,7 @@ fun MainScreen( controller: NavHostController) {
 
     Scaffold(
         topBar = {
-            if (currentRoute != NavigationRoutes.Login.route && currentRoute != NavigationRoutes.Profile.route) {
+            if (currentRoute != NavigationRoutes.Login.route && currentRoute != NavigationRoutes.Profile.route && currentRoute != NavigationRoutes.Deployment.route) {
                 TopAppBarComponent(
                     title = "Policia de la Ciudad",
                     navigationIcon = {

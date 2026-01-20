@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.data.models
+package com.practica.policeubgapp.data.mapped
 
 import com.practica.policeubgapp.domain.models.DISTRICT
 import com.practica.policeubgapp.domain.models.PoliceDateUI

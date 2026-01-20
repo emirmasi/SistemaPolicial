@@ -1,5 +1,6 @@
 package com.practica.policeubgapp.data.network
 
+import com.practica.policeubgapp.domain.models.AuthRes
 import com.practica.policeubgapp.domain.models.Comisaria
 import com.practica.policeubgapp.domain.models.CompletedServiceUI
 import com.practica.policeubgapp.domain.models.Hospital
@@ -16,4 +17,5 @@ interface FirestoreNetworkInterface {
 
     suspend fun getListServiceData(lp: String): List<CompletedServiceUI>
     suspend fun uploadServiceComplete(service: CompletedServiceUI): Result<Unit>
+    suspend fun deleteServicePending(uid: String): Result<Unit>
 }

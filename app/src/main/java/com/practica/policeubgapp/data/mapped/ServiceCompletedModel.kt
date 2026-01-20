@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.data.models
+package com.practica.policeubgapp.data.mapped
 
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint

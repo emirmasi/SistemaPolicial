@@ -1,4 +1,4 @@
-package com.practica.policeubgapp.data.models
+package com.practica.policeubgapp.data.mapped
 
 class PoliceDateModel(
     val Lp: Int = 0,

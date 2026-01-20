@@ -1,6 +1,7 @@
 package com.practica.policeubgapp.data.repository
 
 import com.practica.policeubgapp.data.network.FirestoreNetworkInterface
+import com.practica.policeubgapp.domain.models.AuthRes
 import com.practica.policeubgapp.domain.models.Comisaria
 import com.practica.policeubgapp.domain.models.CompletedServiceUI
 import com.practica.policeubgapp.domain.models.Hospital
@@ -41,6 +42,10 @@ class FirestoreRepositoryImplement @Inject constructor(
     override suspend fun uploadServiceComplete(service: CompletedServiceUI): Result<Unit> {
         return firestoreNetworkInterface.uploadServiceComplete(service)
 
+    }
+
+    override suspend fun deleteServicePending(uid: String): Result<Unit> {
+        return firestoreNetworkInterface.deleteServicePending(uid)
     }
 
 }

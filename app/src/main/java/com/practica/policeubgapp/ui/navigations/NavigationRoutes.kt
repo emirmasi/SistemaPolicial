@@ -15,6 +15,6 @@ sealed class NavigationRoutes(
     object Map : NavigationRoutes("mapScreen","mapa",R.drawable.baseline_map_24)
 
     object Profile : NavigationRoutes("profileScreen","perfil",R.drawable.baseline_person_24)
-
+    object Deployment: NavigationRoutes("deploymentScreen","despliegue",R.drawable.baseline_run_circle_24)
 
 }

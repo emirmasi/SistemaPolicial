@@ -28,13 +28,13 @@ class ServiceDataScreenViewModel @Inject constructor(
         viewModelScope.launch {
             val userEmail = getCurrentUser.getCurrentUser()?.email
             if (userEmail!= null){
-                val response = getServiceData.getListServiceData(userEmail.substringBefore("@"))
-                _listOfServiceComplete.value = response
+                 getServiceData.getListServiceData(userEmail.substringBefore("@")).collect{
+                     _listOfServiceComplete.value = it
+                 }
             }else{
                 _listOfServiceComplete.value = emptyList()
                 e("no se pudo traer los servicios pendientes", "error")
             }
-
         }
     }
 }

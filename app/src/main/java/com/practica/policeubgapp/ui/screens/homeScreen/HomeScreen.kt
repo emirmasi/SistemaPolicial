@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -38,7 +39,7 @@ fun HomeScreen(
     hViewModel: HomeScreenViewModel
 ){
     val publicityList by hViewModel.publicity.observeAsState(initial = emptyList())
-    val serviceList by hViewModel.listOfServices.observeAsState(initial = emptyList())
+    val serviceList by hViewModel.listOfServices.collectAsState(initial = emptyList())
     val context = LocalContext.current
     val sheetState = rememberModalBottomSheetState()
 
@@ -73,8 +74,8 @@ fun HomeScreen(
             onStartService = {
                 val intent = Intent(context, LocationService::class.java)
                 context.startForegroundService(intent)
-                //aca tengo que eliminar el servicio de la lista
-
+                hViewModel.starTime()
+                showSheet = false
                 navController.navigate(NavigationRoutes.Deployment.route)
             }
         )

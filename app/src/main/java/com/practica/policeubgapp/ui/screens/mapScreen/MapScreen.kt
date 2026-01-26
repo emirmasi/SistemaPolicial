@@ -78,7 +78,6 @@ fun MapScreen(
                         infoComuna = infoComuna, modifier = Modifier
                             .fillMaxWidth()
                             .heightIn(max = 350.dp)
-                            .padding(innerPadding)
                     )
                 }
             } else {

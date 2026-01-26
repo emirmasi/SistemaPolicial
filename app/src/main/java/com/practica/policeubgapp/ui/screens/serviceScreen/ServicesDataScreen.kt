@@ -25,7 +25,7 @@ fun ServiceScreen(
     controller: NavHostController
 ){
     val serviceVM :ServiceDataScreenViewModel = hiltViewModel()
-    val services by serviceVM.listOfServiceComplete.collectAsState()
+    val services by serviceVM.sortedServices.collectAsState()
 
     Scaffold(
         topBar = {

@@ -1,5 +1,6 @@
 package com.practica.policeubgapp.data.repository
 
+import com.practica.policeubgapp.data.mapped.ServiceCompletedModel
 import com.practica.policeubgapp.data.network.FirestoreNetworkInterface
 import com.practica.policeubgapp.domain.models.AuthRes
 import com.practica.policeubgapp.domain.models.Comisaria
@@ -8,6 +9,7 @@ import com.practica.policeubgapp.domain.models.Hospital
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.PoliceDateUI
 import com.practica.policeubgapp.domain.models.Publicity
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class FirestoreRepositoryImplement @Inject constructor(
@@ -17,7 +19,7 @@ class FirestoreRepositoryImplement @Inject constructor(
         return firestoreNetworkInterface.getPublicity()
     }
 
-    override suspend fun getListOfServicePending(user: String?): List<PendingServiceUI> {
+    override suspend fun getListOfServicePending(user: String?): Flow<List<PendingServiceUI>> {
         return firestoreNetworkInterface.getListOfServicePending(user)
     }
 
@@ -34,12 +36,12 @@ class FirestoreRepositoryImplement @Inject constructor(
         return firestoreNetworkInterface.getPoliceDate(lp)
     }
 
-    override suspend fun getListServiceData(lp: String): List<CompletedServiceUI> {
+    override suspend fun getListServiceData(lp: String): Flow<List<CompletedServiceUI>> {
         return firestoreNetworkInterface.getListServiceData(lp)
 
     }
 
-    override suspend fun uploadServiceComplete(service: CompletedServiceUI): Result<Unit> {
+    override suspend fun uploadServiceComplete(service: ServiceCompletedModel): Result<Unit> {
         return firestoreNetworkInterface.uploadServiceComplete(service)
 
     }

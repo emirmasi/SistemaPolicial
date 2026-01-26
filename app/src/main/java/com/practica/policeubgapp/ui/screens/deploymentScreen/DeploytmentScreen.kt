@@ -4,28 +4,28 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonElevation
 import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.scale
 import androidx.navigation.NavHostController
@@ -41,10 +41,8 @@ import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.practica.policeubgapp.R
 import com.practica.policeubgapp.data.location.LocationService
+import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 import com.practica.policeubgapp.ui.screens.homeScreen.HomeScreenViewModel
-
-///en esta screen vamos a usar el despliegue de un servicio , tiene que mostrar el mapa con
-//la ubicacion del usuario y contar la cant km recorridos y cambio el estado del efectivo
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -57,6 +55,8 @@ fun DeploymentScreen(
         position = CameraPosition.fromLatLngZoom(initialPos, 17f)
     }
     val context = LocalContext.current
+    var showFinishDialog by remember { mutableStateOf(false) }
+    val selectedService = sharedViewModel.getSelectedPendingUI()
 
     LaunchedEffect(sharedViewModel.currentPosition) {
         sharedViewModel.currentPosition?.let { pos ->
@@ -66,27 +66,53 @@ fun DeploymentScreen(
             )
         }
     }
+
+    if(showFinishDialog){
+        AlertDialog(
+            onDismissRequest = {
+                showFinishDialog = false
+            },
+            title = {
+                Text(text = "Finalizar Servicio")
+            },
+            text = {
+                Text(text = "¿Esta seguro de querer terminar el servico?")
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        showFinishDialog = false
+                        // Ejecutamos toda la lógica de cierre
+                        sharedViewModel.endTime()
+                        sharedViewModel.uploadCompletedService()
+
+                        // Borramos el pendiente usando el UID que guardamos
+                        selectedService?.let { sharedViewModel.deleteService(it.uid) }
+
+                        // Detenemos el GPS y volvemos
+                        context.stopService(Intent(context, LocationService::class.java))
+                        LocationService.distanciaAcumulada = 0f
+                        internalController.navigate(NavigationRoutes.Home.route) {
+                            popUpTo(NavigationRoutes.Home.route) { inclusive = true }
+                        }
+                    }
+                ) {
+                    Text("Finalizar servicio")
+                }
+            },
+            dismissButton = {
+                TextButton(onClick = { showFinishDialog = false }) {
+                    Text("Cancelar")
+                }
+            }
+
+        )
+    }
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(text = "Despliegue") },
                 modifier = Modifier.fillMaxWidth(),
-                actions = {
-                    IconButton(
-                        onClick = {
-                            internalController.navigate("homeScreen"){
-                                popUpTo("homeScreen"){
-                                    inclusive = true
-                                }
-                            }
-                        }
-                    ) {
-                        Icon(
-                            painter = painterResource(id = R.drawable.baseline_arrow_back_24),
-                            contentDescription = "Actualizar",
-                        )
-                    }
-                }
             )
         }
     ) { innerPadding ->
@@ -138,9 +164,7 @@ fun DeploymentScreen(
             }
             Button(
                 onClick = {
-                    ///aca debo ir a la pantalla de home y debo alzar el servicio a la db
-                    // Detener el servicio para ahorrar batería
-                    context.stopService(Intent(context, LocationService::class.java))
+                    showFinishDialog = true
                 },
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             ) {

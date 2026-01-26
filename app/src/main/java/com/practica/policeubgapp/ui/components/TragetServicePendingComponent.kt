@@ -120,6 +120,7 @@ fun TargetPendingServiceComponent(
 fun ShowTargetPreview(){
     TargetPendingServiceComponent(
         PendingServiceUI(
+            uid = "1",
             lp = 6252,
             typeService = TYPESERVICE.UBG,
             locationName = "av segurola y la plata",

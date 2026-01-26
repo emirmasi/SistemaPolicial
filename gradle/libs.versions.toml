@@ -39,6 +39,7 @@ playServicesMaps = "18.2.0"
 googleMaps = "4.3.3"
 foundationLayout = "1.10.0"
 uiGraphics = "1.10.0"
+firebaseAppcheckDebug = "19.0.1"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -90,4 +91,5 @@ google-play-services-location = { group = "com.google.android.gms", name = "play
 google-play-services-maps = { group = "com.google.android.gms", name = "play-services-maps", version.ref = "playServicesMaps" }
 androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "uiGraphics" }
+firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebaseAppcheckDebug" }
 

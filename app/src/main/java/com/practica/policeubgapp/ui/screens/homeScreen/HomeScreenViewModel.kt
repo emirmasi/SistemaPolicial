@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.location.Location
 import android.util.Log
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.LiveData

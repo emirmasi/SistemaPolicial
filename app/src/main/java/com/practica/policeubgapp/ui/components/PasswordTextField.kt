@@ -1,5 +1,8 @@
 package com.practica.policeubgapp.ui.components
 
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -10,10 +13,12 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
 import com.practica.policeubgapp.R
 
 
@@ -28,6 +33,7 @@ fun PasswordTextField(
         value = password,
         onValueChange = onPasswordChanged,
         label = { Text("Introduzca su contraseña") },
+        modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp),
         singleLine = true,
         visualTransformation = if (passwordVisible)
             VisualTransformation.None
@@ -51,6 +57,7 @@ fun PasswordTextField(
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password
-        )
+        ),
+        shape = RoundedCornerShape(12.dp)
     )
 }

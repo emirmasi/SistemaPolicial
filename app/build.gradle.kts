@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.runtime.livedata)
     implementation(libs.androidx.foundation.layout)
     implementation(libs.androidx.ui.graphics)
+    implementation(libs.firebase.appcheck.debug)
     debugImplementation(libs.compose.ui.tooling)
 
     // Firebase

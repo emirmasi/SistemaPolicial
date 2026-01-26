@@ -11,11 +11,12 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 sealed interface LoginUiState{
+    object Idle: LoginUiState
     object Success : LoginUiState
 
     object Loading :LoginUiState
 
-    object Error : LoginUiState
+    data class Error(val message: String) : LoginUiState
 }
 
 @HiltViewModel
@@ -23,7 +24,7 @@ class LoginScreenViewModel @Inject constructor(
     private val signInWithLPAndPassword: SignInWithLpAndPassword
 ): ViewModel(){
     private val _loginUiState = mutableStateOf<LoginUiState>(
-        LoginUiState.Success)
+        LoginUiState.Idle)
     val loginUiState: State<LoginUiState> = _loginUiState
 
     private val _lp = mutableStateOf("")
@@ -32,26 +33,45 @@ class LoginScreenViewModel @Inject constructor(
     private val _password = mutableStateOf("")
     val password: State<String> = _password
 
-    fun setLp(value: Int) {
-        _lp.value = convertLp(value)
+    fun setLp(value: String) {
+        _lp.value = value
     }
-    fun convertLp(value: Int): String{
-        return "$value@gmail.com"
+    fun convertLp(lp: String): String{
+        return "$lp@gmail.com"
     }
-
     fun setPassword(value: String) {
         _password.value = value
     }
 
     fun signInWithLpAndPassword(){
+        if(_lp.value.isEmpty() || _password.value.isEmpty()){
+            _loginUiState.value = LoginUiState.Error("Los campos no pueden estar vacios")
+            return
+        }
         _loginUiState.value = LoginUiState.Loading
         viewModelScope.launch {
             try {
-                signInWithLPAndPassword.signInWithLpAndPassword(lp = _lp.value,password = _password.value)
+                signInWithLPAndPassword.signInWithLpAndPassword(lp = convertLp(_lp.value),password = _password.value)
                 _loginUiState.value = LoginUiState.Success
             }catch (e: Exception){
                 Log.e("sigIn", "failed sign in with email anda password")
-                _loginUiState.value = LoginUiState.Error
+                _loginUiState.value = LoginUiState.Error("LP o contraseña incorrecto")
+            }
+        }
+    }
+    fun resetPassword() {
+        if (_lp.value.isEmpty()) {
+            _loginUiState.value = LoginUiState.Error("Ingrese su LP para recuperar")
+            return
+        }
+
+        viewModelScope.launch {
+            try {
+                val email = convertLp(_lp.value)
+                //Firebase.auth.sendPasswordResetEmail(email).await()
+                // Podrías crear un nuevo estado SuccessReset para mostrar un mensaje
+            } catch (e: Exception) {
+                _loginUiState.value = LoginUiState.Error("Error al enviar correo")
             }
         }
     }

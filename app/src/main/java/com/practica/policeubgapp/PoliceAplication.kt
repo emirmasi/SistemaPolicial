@@ -8,6 +8,8 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
 import android.os.Build
+import com.google.firebase.appcheck.debug.DebugAppCheckProviderFactory
+
 @HiltAndroidApp
 class PoliceApplication : Application(){
 
@@ -15,9 +17,8 @@ class PoliceApplication : Application(){
         super.onCreate()
         val firebaseAppCheck = FirebaseAppCheck.getInstance()
         firebaseAppCheck.installAppCheckProviderFactory(
-            PlayIntegrityAppCheckProviderFactory.getInstance()
+            DebugAppCheckProviderFactory.getInstance()
         )
-
         createNotificationChannel(this)
     }
 

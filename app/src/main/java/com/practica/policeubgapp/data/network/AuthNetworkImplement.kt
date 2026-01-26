@@ -1,6 +1,5 @@
 package com.practica.policeubgapp.data.network
 
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.practica.policeubgapp.domain.models.AuthRes
@@ -15,7 +14,7 @@ class AuthNetworkImplement @Inject constructor(
         password: String
     ): AuthRes<FirebaseUser> =
         try {
-            val result = firebaseAuth.signInWithEmailAndPassword(lp.toString(),password).await()
+            val result = firebaseAuth.signInWithEmailAndPassword(lp,password).await()
             val firebaseUser = result.user
             if(firebaseUser != null){
                 AuthRes.Succes(firebaseUser)
@@ -24,6 +23,7 @@ class AuthNetworkImplement @Inject constructor(
             }
         }catch (e: Exception){
             AuthRes.Error(e.message?: "An Error occurred while loging in")
+            throw e
         }
 
     override suspend fun getCurrentUser(): FirebaseUser? {

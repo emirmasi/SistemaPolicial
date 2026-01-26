@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.practica.policeubgapp.domain.usecases.GetCurrentUser
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -13,19 +14,30 @@ import javax.inject.Inject
 class SplashViewModel @Inject constructor(
     private val getCurrentUser: GetCurrentUser
 ) : ViewModel(){
-    @Suppress("ktlint:standard:property-naming")
-    private val isUserAuthenticate_ = MutableStateFlow<Boolean?>(null)
-    val isUserAuthenticated: StateFlow<Boolean?> = isUserAuthenticate_
+
+    private val _isUserAuthenticate = MutableStateFlow<Boolean?>(null)
+    val isUserAuthenticated: StateFlow<Boolean?> = _isUserAuthenticate
 
     // cuando iniciamos la activity tiene que traer el user
     init {
-        viewModelScope.launch {
-            checkUserAuthenticated()
-        }
+
+        checkUserAuthenticated()
     }
 
-    suspend fun checkUserAuthenticated() {
-        val currentUser = getCurrentUser.getCurrentUser()
-        isUserAuthenticate_.value = (currentUser != null)
+     fun checkUserAuthenticated() {
+         viewModelScope.launch {
+             val currentUser = getCurrentUser.getCurrentUser()
+             currentUser?.reload()?.addOnCompleteListener { task ->
+                 if (task.isSuccessful) {
+                     _isUserAuthenticate.value = true
+                 } else {
+                     _isUserAuthenticate.value = false
+                 }
+
+             } ?: run {
+                 _isUserAuthenticate.value = false
+
+             }
+         }
     }
 }

@@ -29,17 +29,9 @@ fun ExternalNavComponent(
     navigationController: NavHostController,
     modifier: Modifier = Modifier
 ) {
-    val context = LocalContext.current
-    val startRoute = remember {
-        if (isServiceRunning(context, LocationService::class.java)) {
-            NavigationRoutes.MainScreen.route
-        } else {
-            NavigationRoutes.Splash.route
-        }
-    }
     NavHost(
         navController = navigationController,
-        startDestination = startRoute,
+        startDestination = NavigationRoutes.Splash.route,
         modifier = modifier
     ){
         composable(route = NavigationRoutes.Splash.route){
@@ -60,18 +52,10 @@ fun ExternalNavComponent(
 fun InternalNavComponent(
     internalController: NavHostController
 ){
-    val context = LocalContext.current
     val sharedViewModel: HomeScreenViewModel = hiltViewModel()
-    val startRoute = remember {
-        if (isServiceRunning(context, LocationService::class.java)) {
-            NavigationRoutes.Deployment.route
-        } else {
-            NavigationRoutes.Home.route
-        }
-    }
     NavHost(
         navController = internalController,
-        startDestination = startRoute
+        startDestination = NavigationRoutes.Home.route
     ){
         composable(route = NavigationRoutes.Home.route){
             HomeScreen(internalController, sharedViewModel)

@@ -2,6 +2,7 @@ package com.practica.policeubgapp.domain.di
 
 import com.practica.policeubgapp.data.repository.FirestoreRepositoryInterface
 import com.practica.policeubgapp.domain.services.FirestoreService
+import com.practica.policeubgapp.domain.usecases.DeleteServicePending
 import com.practica.policeubgapp.domain.usecases.GetComisarias
 import com.practica.policeubgapp.domain.usecases.GetHospitales
 import com.practica.policeubgapp.domain.usecases.GetListOfServicePending
@@ -50,6 +51,10 @@ object FirestoreProvider {
     }
     @Provides
     fun provideUploadCompleteService(firestoreService: FirestoreService): UploadCompleteService {
+        return firestoreService
+    }
+    @Provides
+    fun provideDeleteServicePending(firestoreService: FirestoreService): DeleteServicePending {
         return firestoreService
     }
 

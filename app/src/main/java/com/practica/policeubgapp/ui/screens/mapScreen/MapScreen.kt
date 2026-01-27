@@ -12,11 +12,16 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -32,7 +37,7 @@ import com.google.maps.android.compose.rememberCameraPositionState
 import com.practica.policeubgapp.ui.components.CardInformative
 import com.practica.policeubgapp.ui.components.MapComponent
 
-@OptIn(ExperimentalPermissionsApi::class)
+@OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun MapScreen(
     navController: NavHostController,
@@ -49,6 +54,8 @@ fun MapScreen(
             android.Manifest.permission.ACCESS_COARSE_LOCATION
         )
     )
+    val sheetState = rememberModalBottomSheetState()
+    var showSheet by remember { mutableStateOf(false) }
 
     Scaffold {
         innerPadding->
@@ -68,16 +75,19 @@ fun MapScreen(
                     comisarias = comisarias,
                 ) { comuna, barrios ->
                     mapScreenViewModel.seleccionarComuna(comuna, barrios)
+                    showSheet = true
                 }
                 AnimatedVisibility(
-                    visible = infoComuna != null,
+                    visible = showSheet,
                     enter = slideInVertically(initialOffsetY = { it }),
                     exit = slideOutVertically(targetOffsetY = { it })
                 ) {
                     CardInformative(
-                        infoComuna = infoComuna, modifier = Modifier
-                            .fillMaxWidth()
-                            .heightIn(max = 350.dp)
+                        infoComuna,
+                        sheetState,
+                        onDismiss = {
+                            showSheet = false
+                        }
                     )
                 }
             } else {

@@ -91,7 +91,7 @@ fun DeploymentScreen(
 
                         // Detenemos el GPS y volvemos
                         context.stopService(Intent(context, LocationService::class.java))
-                        LocationService.distanciaAcumulada = 0f
+                        LocationService.distanciaAcumuladaMetros = 0f
                         internalController.navigate(NavigationRoutes.Home.route) {
                             popUpTo(NavigationRoutes.Home.route) { inclusive = true }
                         }

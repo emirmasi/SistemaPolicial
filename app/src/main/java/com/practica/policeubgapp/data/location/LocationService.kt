@@ -32,7 +32,7 @@ class LocationService : Service() {
     private var lastLocationLocal: Location? = null
     companion object {
         val locationData = MutableSharedFlow<Location>(extraBufferCapacity = 1)
-        var distanciaAcumulada = 0f
+        var distanciaAcumuladaMetros = 0f
     }
 
     override fun onCreate() {
@@ -45,8 +45,10 @@ class LocationService : Service() {
                     lastLocationLocal?.let { prev->
                         val distance = location.distanceTo(prev)
                         if(distance > 2.0){
-                            distanciaAcumulada += distance/1000
-                            updateNotification(distanciaAcumulada)
+                            distanciaAcumuladaMetros += distance
+                            Log.d("LocationService", "Distancia recorrida: $distanciaAcumuladaMetros")
+                            val km  = distanciaAcumuladaMetros/1000f
+                            updateNotification(km)
 
                         }
                     }

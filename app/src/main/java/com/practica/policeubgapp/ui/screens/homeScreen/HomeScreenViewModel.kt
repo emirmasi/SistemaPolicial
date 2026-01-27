@@ -123,7 +123,8 @@ class HomeScreenViewModel @Inject constructor(
 
     @SuppressLint("DefaultLocale")
     fun getDistanceKm(): String {
-        val km = LocationService.distanciaAcumulada
+        val distancia = LocationService.distanciaAcumuladaMetros
+        val km = distancia / 1000f
         return String.format("%.2f", km)
     }
 
@@ -151,13 +152,14 @@ class HomeScreenViewModel @Inject constructor(
         }
     }
     fun resetDistance() {
-        LocationService.distanciaAcumulada = 0f
+        LocationService.distanciaAcumuladaMetros = 0f
     }
 
     fun uploadCompletedService() {
         ///creo un completed service
-        val distance = LocationService.distanciaAcumulada
-        resetDistance()
+        val distance = LocationService.distanciaAcumuladaMetros
+        val totalkm  = distance/1000f
+        val distanceFinal = String.format(Locale.US, "%.2f", totalkm).toFloat()
         val completedService = ServiceCompletedModel(
             lp = selectedServiceUI.value?.lp ?: 0,
             date = stringToTimeStamp(selectedServiceUI.value?.date ?: ""),
@@ -168,12 +170,12 @@ class HomeScreenViewModel @Inject constructor(
             starTime = this.startTime,
             endTime = this.endTime,
             totalHours = timestampeToHours(this.startTime, this.endTime),
-            totalDistanceKm = distance
+            totalDistanceKm = distanceFinal
         )
         viewModelScope.launch {
             try {
                 uploadServiceComplete.uploadServiceComplete(completedService)
-                LocationService.distanciaAcumulada = 0f
+                resetDistance()
             } catch (e: Exception) {
                 Log.e("no se pudo subir el servicio", e.message.toString())
             }

@@ -10,10 +10,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Badge
+import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,20 +27,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.practica.policeubgapp.domain.models.DatosPanel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CardInformative(
     infoComuna: DatosPanel?,
-    modifier: Modifier = Modifier
+    sheetState: SheetState,
+    onDismiss: () -> Unit
 ) {
     // Si no hay comuna seleccionada, no mostramos nada
     if (infoComuna == null) return
 
-    Card(
-        modifier = modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+    ModalBottomSheet (
+        onDismissRequest = onDismiss,
+        sheetState = sheetState,
+        containerColor = Color.White,
+        dragHandle = { BottomSheetDefaults.DragHandle() }, // La barrita para deslizar
+        scrimColor = Color.Black.copy(alpha = 0.4f) // El fondo oscurecido
     ) {
         Column(
             modifier = Modifier

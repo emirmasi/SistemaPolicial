@@ -45,7 +45,7 @@
                 android:value="com.google.firebase.components.ComponentRegistrar" />
         </service>
         <service
-            android:name=".data.location.LocationService"
+            android:name=".service.location.LocationService"
             android:foregroundServiceType="location" />
     </application>
 

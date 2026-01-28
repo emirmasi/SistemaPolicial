@@ -86,6 +86,29 @@ dependencies {
 
     //coil
     implementation(libs.coil)
+
+    //test
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    // Para mockear funciones finales y clases (necesario en Kotlin)
+    testImplementation("org.mockito.inline:mockito-inline:5.2.0")
+    // Mockito-Kotlin: Una capa encima de Mockito para que sea más natural en Kotlin
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
+    // Para testear Coroutines y Flows
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3")
+    // Para testear LiveData
+    testImplementation("androidx.arch.core:core-testing:2.2.0")
+
+    // --- INSTRUMENTED TESTING (Carpeta androidTest - Emulador) ---
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    // Mockito para Android (necesario para correr en el celular/emulador)
+    androidTestImplementation("org.mockito:mockito-android:5.11.0")
+
+    // --- HILT TESTING (Si quieres probar con inyección de dependencias) ---
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.48")
+
+    //kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.48")
 }
 
 

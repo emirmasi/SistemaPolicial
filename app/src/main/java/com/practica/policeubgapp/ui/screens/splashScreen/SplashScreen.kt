@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.practica.policeubgapp.R
-import com.practica.policeubgapp.data.location.LocationService
+import com.practica.policeubgapp.service.location.LocationService
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 import com.practica.policeubgapp.ui.navigations.isServiceRunning
 

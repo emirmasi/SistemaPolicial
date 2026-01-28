@@ -40,7 +40,7 @@ import com.google.maps.android.compose.Marker
 import com.google.maps.android.compose.MarkerState
 import com.google.maps.android.compose.rememberCameraPositionState
 import com.practica.policeubgapp.R
-import com.practica.policeubgapp.data.location.LocationService
+import com.practica.policeubgapp.service.location.LocationService
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 import com.practica.policeubgapp.ui.screens.homeScreen.HomeScreenViewModel
 
@@ -91,7 +91,6 @@ fun DeploymentScreen(
 
                         // Detenemos el GPS y volvemos
                         context.stopService(Intent(context, LocationService::class.java))
-                        LocationService.distanciaAcumuladaMetros = 0f
                         internalController.navigate(NavigationRoutes.Home.route) {
                             popUpTo(NavigationRoutes.Home.route) { inclusive = true }
                         }

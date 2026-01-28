@@ -21,10 +21,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.practica.policeubgapp.data.location.LocationService
-import com.practica.policeubgapp.domain.models.PendingServiceUI
-import com.practica.policeubgapp.domain.models.Publicity
+import com.practica.policeubgapp.service.location.LocationService
 import com.practica.policeubgapp.ui.components.CarrouselComponent
+import com.practica.policeubgapp.ui.components.RequestNotificationPermission
 import com.practica.policeubgapp.ui.components.ServiceDetailSheet
 import com.practica.policeubgapp.ui.components.TargetPendingServiceComponent
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
@@ -64,6 +63,7 @@ fun HomeScreen(
     }
     var selectedService = hViewModel.getSelectedPendingUI()
     if (showSheet && selectedService!= null) {
+        RequestNotificationPermission()
         ServiceDetailSheet(
             service = selectedService,
             sheetState = sheetState,

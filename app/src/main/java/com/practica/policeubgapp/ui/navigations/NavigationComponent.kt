@@ -5,14 +5,12 @@ import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
-import com.practica.policeubgapp.data.location.LocationService
+import androidx.navigation.navDeepLink
 import com.practica.policeubgapp.ui.screens.deploymentScreen.DeploymentScreen
 import com.practica.policeubgapp.ui.screens.homeScreen.HomeScreen
 import com.practica.policeubgapp.ui.screens.homeScreen.HomeScreenViewModel
@@ -69,7 +67,10 @@ fun InternalNavComponent(
         composable(route = NavigationRoutes.Profile.route){
             ProfileScreen(navController = internalController)
         }
-        composable(route = NavigationRoutes.Deployment.route){
+        composable(
+            route = NavigationRoutes.Deployment.route,
+            deepLinks = listOf(navDeepLink{uriPattern = "policeubgapp://deployment"})
+        ){
             DeploymentScreen(internalController, sharedViewModel)
         }
 

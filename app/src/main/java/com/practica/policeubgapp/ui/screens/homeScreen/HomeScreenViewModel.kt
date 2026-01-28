@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.Timestamp
-import com.practica.policeubgapp.data.location.LocationService
+import com.practica.policeubgapp.service.location.LocationService
 import com.practica.policeubgapp.data.mapped.ServiceCompletedModel
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.Publicity

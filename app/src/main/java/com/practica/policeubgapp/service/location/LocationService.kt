@@ -1,7 +1,8 @@
-package com.practica.policeubgapp.data.location
+package com.practica.policeubgapp.service.location
 
 import android.Manifest
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
@@ -15,6 +16,7 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresPermission
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -37,6 +39,7 @@ class LocationService : Service() {
 
     override fun onCreate() {
         super.onCreate()
+        createNotificationChannel()
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
         locationCallback = object : LocationCallback() {
@@ -56,6 +59,17 @@ class LocationService : Service() {
                     locationData.tryEmit(location)
                 }
             }
+        }
+    }
+    private fun createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(
+                "location_channel",
+                "Seguimiento de Patrullaje",
+                NotificationManager.IMPORTANCE_LOW // LOW para que no moleste con sonidos cada 5 seg
+            )
+            val manager = getSystemService(NotificationManager::class.java)
+            manager?.createNotificationChannel(channel)
         }
     }
 
@@ -88,10 +102,7 @@ class LocationService : Service() {
         val channelId = "location_channel"
 
         // 1. Crear el Intent que abre la MainActivity
-        val intent = Intent(this, MainActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP // No recrea la app si ya está abierta
-        }
-
+        val intent = Intent(Intent.ACTION_VIEW, "policeubgapp://deployment".toUri(),this, MainActivity::class.java)
         // 2. Crear el PendingIntent (el "ticket" para que Android abra la app por nosotros)
         val pendingIntent = PendingIntent.getActivity(
             this, 0, intent,
@@ -110,7 +121,7 @@ class LocationService : Service() {
 
     private fun updateNotification(distancia: Float) {
         val notificationManager =
-            getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.notify(
             1,
             createNotification(distancia)

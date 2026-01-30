@@ -39,6 +39,9 @@ android {
             jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
         }
     }
+    testOptions {
+        unitTests.isReturnDefaultValues = true
+    }
 }
 
 dependencies {
@@ -91,7 +94,7 @@ dependencies {
     testImplementation("org.mockito:mockito-core:5.11.0")
     androidTestImplementation("androidx.test:rules:1.5.0")
     // Para mockear funciones finales y clases (necesario en Kotlin)
-    testImplementation("org.mockito.inline:mockito-inline:5.2.0")
+    //testImplementation("org.mockito.inline:mockito-inline:5.2.0")
     // Mockito-Kotlin: Una capa encima de Mockito para que sea más natural en Kotlin
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
     // Para testear Coroutines y Flows
@@ -109,6 +112,7 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.48")
 
     //kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.48")
+    testImplementation(kotlin("test"))
 }
 
 

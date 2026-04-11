@@ -48,6 +48,7 @@ googleMaps = "4.3.3"
 foundationLayout = "1.10.0"
 uiGraphics = "1.10.0"
 firebaseAppcheckDebug = "19.0.1"
+biometricKtx = "1.1.0"
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -108,4 +109,5 @@ google-play-services-maps = { group = "com.google.android.gms", name = "play-ser
 androidx-foundation-layout = { group = "androidx.compose.foundation", name = "foundation-layout", version.ref = "foundationLayout" }
 androidx-ui-graphics = { group = "androidx.compose.ui", name = "ui-graphics", version.ref = "uiGraphics" }
 firebase-appcheck-debug = { group = "com.google.firebase", name = "firebase-appcheck-debug", version.ref = "firebaseAppcheckDebug" }
+androidx-biometric-ktx = { group = "androidx.biometric", name = "biometric-ktx", version.ref = "biometricKtx" }
 

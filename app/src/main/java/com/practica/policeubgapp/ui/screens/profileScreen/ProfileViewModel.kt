@@ -33,7 +33,7 @@ class ProfileViewModel @Inject constructor(
           }catch (e: Exception){
               Log.e("error", e.message.toString())
           }
-       }
+      }
    }
 
 }

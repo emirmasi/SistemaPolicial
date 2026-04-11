@@ -53,7 +53,7 @@ Mapa interactivo con:
 Comunas delimitadas
 Ubicación de comisarías
 🏙️ Información por comuna
-<p align="center"> <img src="https://github.com/user-attachments/assets/91910873-2803-4601-ac27-f77918c08248" width="250"/> </p>
+<p align="center"> <img width="190" height="402" alt="infoDeComunaComiYHosp" src="https://github.com/user-attachments/assets/1566c51b-5719-4f2b-831c-0cb2ce21277e" /> </p>
 
 Al seleccionar una comuna:
 

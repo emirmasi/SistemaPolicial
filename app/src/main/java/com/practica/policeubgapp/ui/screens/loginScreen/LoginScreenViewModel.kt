@@ -75,4 +75,7 @@ class LoginScreenViewModel @Inject constructor(
             }
         }
     }
+    fun resetState(){
+
+    }
 }

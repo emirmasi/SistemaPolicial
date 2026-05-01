@@ -12,6 +12,7 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -55,7 +56,7 @@ fun MainScreen(
         topBar = {
             if (currentRoute != NavigationRoutes.Login.route && currentRoute != NavigationRoutes.Profile.route && currentRoute != NavigationRoutes.Deployment.route) {
                 TopAppBarComponent(
-                    title = "Policia de la Ciudad",
+                    title = "Policía de la Ciudad",
                     navigationIcon = {
                         IconButton(
                             onClick = {
@@ -69,7 +70,8 @@ fun MainScreen(
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.baseline_person_24),
-                                contentDescription = "perfil"
+                                contentDescription = "perfil",
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     },
@@ -81,7 +83,8 @@ fun MainScreen(
                         ) {
                             Icon(
                                 painter = painterResource(R.drawable.baseline_logout_24),
-                                contentDescription = "desloguearse"
+                                contentDescription = "desloguearse",
+                                tint = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
@@ -92,7 +95,7 @@ fun MainScreen(
             BottomBarComponent(navController = internalController)
         },
     ) { innerPadding ->
-        InternalNavComponent(internalController = internalController)
+        InternalNavComponent(internalController = internalController,innerPadding)
     }
 
     if (showDialog) {

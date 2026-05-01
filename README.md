@@ -16,12 +16,13 @@ Acceder a su credencial digital
 Los datos utilizados provienen de fuentes públicas del Gobierno de la Ciudad Autónoma de Buenos Aires.
 
 🔐 Login
-<p align="center"> <img src="https://github.com/user-attachments/assets/9c39ad6e-1ed3-46e9-8853-a227b223e94a" width="250"/> </p>
+<p align = "center"><img width="197" height="403" alt="loginNuevo" src="https://github.com/user-attachments/assets/24ff4ffc-c700-414d-9a28-78865300579c" /></p>
 
 Ingreso mediante LP (legajo personal) y contraseña del efectivo.
 
 🏠 Pantalla principal (Home)
-<p align="center"> <img src="https://github.com/user-attachments/assets/c09b6556-6690-48cb-8404-0d77700240ac" width="250"/> </p>
+<p align="center"> <img width="197" height="409" alt="pantallaHomeNuevo" src="https://github.com/user-attachments/assets/564afe7f-cfae-40c8-861f-ee48ccdf1d0f" />
+ </p>
 
 Visualización de los servicios asignados al efectivo.
 
@@ -66,7 +67,8 @@ Cantidad de instituciones
 Visualización de credencial digital del policía.
 
 🔓 Cierre de sesión
-<p align="center"> <img src="https://github.com/user-attachments/assets/62dfeb48-eb4f-447f-a677-0ee725f1bc8c" width="250"/> </p>
+<p align="center"><img width="194" height="406" alt="cerrarSesionNuevo" src="https://github.com/user-attachments/assets/7fd41951-a53a-4e26-a1e3-f4395224f8b8" />
+ </p>
 
 Confirmación segura para evitar cierres accidentales.
 

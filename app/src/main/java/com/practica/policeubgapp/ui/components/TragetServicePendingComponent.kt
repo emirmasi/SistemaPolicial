@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ElevatedCard
@@ -19,13 +20,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.practica.policeubgapp.R
 import com.practica.policeubgapp.domain.models.PendingServiceUI
 import com.practica.policeubgapp.domain.models.SCHEDULE
@@ -36,7 +35,7 @@ import com.practica.policeubgapp.domain.models.capitalizeFirst
 fun TargetPendingServiceComponent(
     service: PendingServiceUI,
     onClickDetail: () -> Unit,
-){
+) {
     ElevatedCard(
         elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
         modifier = Modifier
@@ -44,75 +43,60 @@ fun TargetPendingServiceComponent(
             .fillMaxWidth()
             .height(IntrinsicSize.Min)
     ) {
-        Row(
+        Column(
             modifier = Modifier
-                .padding(16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.Top
+                .weight(1f)
+                .padding(horizontal = 16.dp, vertical = 5.dp),
+            verticalArrangement = Arrangement.spacedBy(6.dp)
         ) {
-            // Columna izquierda (datos principales)
-            Column(
-                modifier = Modifier.weight(1f),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painter = painterResource(R.drawable.baseline_hourglass_bottom_24),
-                        contentDescription = "Horario",
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp)
-                    )
-                    Text(
-                        text = service.schedule.timeRange,
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-                Row(verticalAlignment = Alignment.CenterVertically) {
-                    Icon(painter = painterResource(R.drawable.baseline_place_24),
-                        contentDescription = "QTH",
-                        modifier = Modifier.size(16.dp)
-                    )
-                    Spacer(modifier = Modifier.width(4.dp))
-                    Text(
-                        text = service.locationName.capitalizeFirst(),
-                        maxLines = 2,
-                        overflow = TextOverflow.Ellipsis,
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
-            }
+            Text(
+                text = "ESTADO: ASIGNADO",
+                modifier = Modifier.align(Alignment.End),
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
+            TextTarjetService(
+                icon = R.drawable.baseline_hourglass_bottom_24,
+                placeholder = "Horario:",
+                text = service.schedule.timeRange
+            )
+            TextTarjetService(
+                icon = R.drawable.baseline_place_24,
+                placeholder = "Ubicacion",
+                text = service.locationName
+            )
 
-            // Columna derecha (fecha y fiscalizado)
-            Column(
-                horizontalAlignment = Alignment.End,
-                verticalArrangement = Arrangement.spacedBy(6.dp)
+            TextTarjetService(
+                icon = R.drawable.baseline_calendar_month_24,
+                placeholder = "Fecha",
+                text = service.date
+            )
+            TextTarjetService(
+                icon = R.drawable.baseline_workspace_premium_24,
+                placeholder = "Tipo de Servicio",
+                text = service.typeService.name
+            )
+
+            ElevatedButton(
+                onClick = {
+                    onClickDetail()
+                },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                shape = MaterialTheme.shapes.small,
+                colors = ButtonDefaults.elevatedButtonColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary
+                )
             ) {
-                Text(
-                    text = service.date,
-                    style = MaterialTheme.typography.labelMedium.copy(fontWeight = FontWeight.Bold)
-                )
-                Text(
-                    text = service.typeService.name,
-                    style = MaterialTheme.typography.bodySmall
-                )
+                Text("Mas detalles")
             }
         }
 
-        ElevatedButton(
-            onClick = {
-                onClickDetail()
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp)
-                .align(Alignment.CenterHorizontally),
-        ) {
-            Text("Mas detalles")
-        }
+
     }
+
 }
 
 @Preview(showBackground = true)

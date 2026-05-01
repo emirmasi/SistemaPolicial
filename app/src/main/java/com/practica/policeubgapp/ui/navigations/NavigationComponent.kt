@@ -4,6 +4,7 @@ import android.app.ActivityManager
 import android.content.Context
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -48,7 +49,8 @@ fun ExternalNavComponent(
 @RequiresApi(Build.VERSION_CODES.P)
 @Composable
 fun InternalNavComponent(
-    internalController: NavHostController
+    internalController: NavHostController,
+    innerPadding: PaddingValues
 ){
     val sharedViewModel: HomeScreenViewModel = hiltViewModel()
     NavHost(
@@ -56,7 +58,7 @@ fun InternalNavComponent(
         startDestination = NavigationRoutes.Home.route
     ){
         composable(route = NavigationRoutes.Home.route){
-            HomeScreen(internalController, sharedViewModel)
+            HomeScreen(internalController, innerPadding,sharedViewModel)
         }
         composable(route = NavigationRoutes.ServicesData.route){
             ServiceScreen(internalController)

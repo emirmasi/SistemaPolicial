@@ -7,14 +7,18 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarDefaults
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.practica.policeubgapp.ui.navigations.NavigationRoutes
 
 @Composable
@@ -30,7 +34,7 @@ fun BottomBarComponent(
     ) {
         NavigationBar(windowInsets = NavigationBarDefaults.windowInsets) {
 
-            val navBackStackEntry = navController.currentBackStackEntry
+            val navBackStackEntry by navController.currentBackStackEntryAsState()
             val currentRoute = navBackStackEntry?.destination?.route
 
             val listRoutes = listOf(
@@ -56,7 +60,14 @@ fun BottomBarComponent(
                     },
                     label = {
                         Text(text = screen.title)
-                    }
+                    },
+                    colors = NavigationBarItemDefaults.colors(
+                        selectedIconColor = MaterialTheme.colorScheme.primary,
+                        selectedTextColor = MaterialTheme.colorScheme.primary,
+                        indicatorColor = Color.Transparent,
+                        unselectedIconColor = MaterialTheme.colorScheme.tertiary,
+                        unselectedTextColor = MaterialTheme.colorScheme.tertiary
+                    )
                 )
             }
         }

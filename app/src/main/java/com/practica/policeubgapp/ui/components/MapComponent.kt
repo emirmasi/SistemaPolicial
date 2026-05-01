@@ -72,7 +72,7 @@ fun MapComponent(
                 }
             }
             val policeIcon = remember {
-                val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.ciudad_logo1)
+                val bitmap = BitmapFactory.decodeResource(context.resources, R.drawable.escudo_ciudad2)
                 // Redimensionar a 100x100 píxeles (ajusta según necesites)
                 val smallMarker = bitmap.scale(100, 100, false)
                 BitmapDescriptorFactory.fromBitmap(smallMarker)

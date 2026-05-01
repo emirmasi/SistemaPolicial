@@ -112,7 +112,7 @@ class LocationService : Service() {
         return NotificationCompat.Builder(this, channelId)
             .setContentTitle("Servicio Policial Activo")
             .setContentText("Distancia recorrida: ${String.format("%.2f", distancia)} KM")
-            .setSmallIcon(R.drawable.ciudad_logo1)
+            .setSmallIcon(R.drawable.escudo_ciudad2)
             .setOngoing(true)
             .setOnlyAlertOnce(true) // Importante: evita que el celular suene/vibre en cada actualización
             .setContentIntent(pendingIntent) // <--- Aquí vinculamos el toque

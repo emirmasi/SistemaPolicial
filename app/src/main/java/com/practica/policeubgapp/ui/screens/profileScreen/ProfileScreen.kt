@@ -97,8 +97,8 @@ fun ProfileScreen(
                             .height(350.dp)
                             .clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp)),
                         contentScale = ContentScale.Crop,
-                        error = painterResource(R.drawable.ciudad_logo1),
-                        placeholder = painterResource(R.drawable.ciudad_logo1)
+                        error = painterResource(R.drawable.escudo_ciudad2),
+                        placeholder = painterResource(R.drawable.escudo_ciudad2)
                     )
 
                     // 2. DATOS DEL OFICIAL

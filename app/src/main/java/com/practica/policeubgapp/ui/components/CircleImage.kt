@@ -19,7 +19,7 @@ import com.practica.policeubgapp.R
 fun CircleImage(url: String){
     AsyncImage(
         model = url,
-        placeholder =painterResource(R.drawable.ciudad_logo1),
+        placeholder =painterResource(R.drawable.escudo_ciudad2),
         contentDescription = "foto de perfil",
         modifier = Modifier
             .size(100.dp)

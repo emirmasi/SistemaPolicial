@@ -160,7 +160,7 @@ fun DeploymentScreen(
                     val policeIcon = remember {
                         val bitmap = BitmapFactory.decodeResource(
                             internalController.context.resources,
-                            R.drawable.ciudad_logo1
+                            R.drawable.escudo_ciudad2
                         )
                         // Redimensionar a 100x100 píxeles (ajusta según necesites)
                         val smallMarker = bitmap.scale(100, 100, false)

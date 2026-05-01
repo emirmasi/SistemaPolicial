@@ -55,6 +55,6 @@ fun SplashScreen(navHostController: NavHostController) {
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Image(painter = painterResource(id = R.drawable.ciudad_logo1), contentDescription = null)
+        Image(painter = painterResource(id = R.drawable.escudo_ciudad2), contentDescription = null)
     }
 }

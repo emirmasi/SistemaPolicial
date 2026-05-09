@@ -27,7 +27,8 @@ Ingreso mediante LP (legajo personal) y contraseña del efectivo.
 Visualización de los servicios asignados al efectivo.
 
 📍 Detalles del servicio
-<p align="center"> <img src="https://github.com/user-attachments/assets/1d5ce0f7-3b6e-4457-8d1b-ebf00b3e820b" width="250"/> </p>
+<p align="center"> <img width="193" height="409" alt="homeConDetalle" src="https://github.com/user-attachments/assets/38f534d6-5979-4aea-85c5-8160993e1021" />
+ </p>
 
 Incluye:
 
